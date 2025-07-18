@@ -1,5 +1,14 @@
+import Header from "@/Header";
+import Footer from "@/Footer";
+
 function App() {
-  return <div className="m-4 p-4 bg-red-500 ">Hello world!</div>;
+  return (
+    <div className="font-pokemon flex min-h-screen flex-col">
+      <Header />
+      <p className="grow">Hello world!</p>
+      <Footer />
+    </div>
+  );
 }
 
 export default App;
