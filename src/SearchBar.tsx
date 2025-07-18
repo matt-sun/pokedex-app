@@ -42,7 +42,7 @@ function SearchBar() {
           <input
             type="text"
             id="simple-search"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pokemon-blue focus:border-pokemon-blue block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pokemon-blue dark:focus:border-pokemon-blue"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pokemon-blue focus:border-pokemon-blue block w-full ps-10 p-2.5  dark:bg-gray-300 dark:border-gray-400 dark:placeholder-gray-500 dark:text-white dark:focus:ring-pokemon-blue dark:focus:border-pokemon-blue"
             placeholder="Enter Pokemon name..."
             required
           />
@@ -54,48 +54,22 @@ function SearchBar() {
           className="p-2.5 ms-2 text-sm font-medium text-white bg-pokemon-blue rounded-lg border border-pokemon-blue hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-400 dark:bg-pokemon-blue dark:hover:bg-blue-800 dark:focus:ring-blue-800"
         >
           <svg
-            className="w-5 h-5 text-black dark:text-white"
+            className="w-4 h-4"
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 20 20"
-            stroke="currentColor"
-            stroke-width="1.5"
-            aria-hidden="true"
           >
             <path
+              stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              d="
-    M3 2
-    H13
-    A2 2 0 0 1 15 4
-    V6
-    H17
-    A1 1 0 0 1 18 7
-    V18
-    A1 1 0 0 1 17 19
-    H3
-    A1 1 0 0 1 2 18
-    V3
-    A1 1 0 0 1 3 2
-    Z
-
-    M6 6
-    H10
-
-    M6 9
-    H12
-
-    M6 12
-    H9"
+              stroke-width="2"
+              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
             />
           </svg>
           <span className="sr-only">Search</span>
         </Button>
-        {/* <button
-          type="submit"
-          className="p-2.5 ms-2 text-sm font-medium text-white bg-pokemon-blue rounded-lg border border-pokemon-blue hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-400 dark:bg-pokemon-blue dark:hover:bg-blue-800 dark:focus:ring-blue-800"
-        ></button> */}
       </form>
     </div>
   );

@@ -1,43 +1,30 @@
 import { Button } from "@/components/ui/button";
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-} from "@/components/ui/navigation-menu";
 import SearchBar from "./SearchBar";
+import Icon from "./Icon";
 
 function Header() {
   return (
-    <header className="m-4 p-4 bg-pokemon-red rounded-2xl">
-      <NavigationMenu>
-        <NavigationMenuList>
-          <NavigationMenuItem>
-            <NavigationMenuLink asChild>
-              <h1>
-                <a href="/">Pokedex App</a>
-              </h1>
-            </NavigationMenuLink>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <SearchBar />
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <NavigationMenuLink asChild>
-              <Button variant="link">
-                <a>Favorites</a>
-              </Button>
-            </NavigationMenuLink>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <NavigationMenuLink asChild>
-              <Button variant="link">
-                <a>About</a>
-              </Button>
-            </NavigationMenuLink>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
+    <header className="bg-pokemon-red m-4 p-4 rounded-2xl ">
+      <nav className=" flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <Icon />
+          <h1>
+            <a href="/">Pokedex App</a>
+          </h1>
+        </div>
+
+        <div>
+          <SearchBar />
+        </div>
+        <div>
+          <Button variant="link">
+            <a>Favorites</a>
+          </Button>
+          <Button variant="link">
+            <a>About</a>
+          </Button>
+        </div>
+      </nav>
     </header>
   );
 }
