@@ -18,10 +18,10 @@ function Header() {
         </div>
         <div>
           <Button variant="link">
-            <a>Favorites</a>
+            <a href="/favorites">Favorites</a>
           </Button>
           <Button variant="link">
-            <a>About</a>
+            <a href="/about">About</a>
           </Button>
         </div>
       </nav>
