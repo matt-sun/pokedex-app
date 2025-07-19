@@ -51,7 +51,7 @@ function SearchBar() {
           type="submit"
           variant="default"
           size="icon"
-          className="p-2.5 ms-2 text-sm font-medium text-white bg-pokemon-blue rounded-lg border border-pokemon-blue hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-400 dark:bg-pokemon-blue dark:hover:bg-blue-800 dark:focus:ring-blue-800"
+          className="p-2.5 ms-2 text-sm font-medium text-white bg-amber-300 rounded-lg border border-pokemon-blue hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-400 dark:bg-pokemon-blue dark:hover:bg-blue-800 dark:focus:ring-blue-800"
         >
           <svg
             className="w-4 h-4"
