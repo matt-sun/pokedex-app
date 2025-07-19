@@ -1,4 +1,4 @@
-function Icon() {
+function Logo() {
   return (
     <div>
       <svg
@@ -38,9 +38,9 @@ function Icon() {
     H9"
         />
       </svg>
-      <span className="sr-only">Pokedex Icon</span>
+      <span className="sr-only">Pokedex Logo</span>
     </div>
   );
 }
 
-export default Icon;
+export default Logo;

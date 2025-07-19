@@ -1,20 +1,25 @@
 import {
   Card,
+  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import TypeBadge from "./TypeBadge";
+import FavoriteButton from "./FavoriteButton";
 
 function PokemonCard() {
   return (
     <div>
-      <Card className="w-3xs">
+      <Card className="w-auto">
         <CardHeader>
           <CardTitle>Charizard</CardTitle>
           <CardDescription>#0006</CardDescription>
+          <CardAction>
+            <FavoriteButton />
+          </CardAction>
         </CardHeader>
         <CardContent>
           <img
@@ -24,18 +29,8 @@ function PokemonCard() {
           />
         </CardContent>
         <CardFooter className="flex w-full flex-wrap gap-2">
-          <Badge
-            variant="default"
-            className="bg-orange-500 text-white dark:bg-orange-500 w-16"
-          >
-            Fire
-          </Badge>
-          <Badge
-            variant="default"
-            className="bg-blue-200 text-white dark:bg-blue-200 w-16"
-          >
-            Fly
-          </Badge>
+          <TypeBadge />
+          <TypeBadge />
         </CardFooter>
       </Card>
     </div>
