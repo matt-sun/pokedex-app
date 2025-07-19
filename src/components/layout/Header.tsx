@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import SearchBar from "./SearchBar";
 import Logo from "./Logo";
 import { ModeToggle } from "./ModeToggle";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
@@ -10,7 +11,7 @@ function Header() {
         <div className="flex items-center gap-3 justify-self-start">
           <Logo />
           <h1>
-            <a href="/">Pokedex App</a>
+            <Link to={``}>Pokedex App</Link>
           </h1>
         </div>
 
@@ -19,10 +20,10 @@ function Header() {
         </div>
         <div className="items-center justify-self-end">
           <Button variant="link">
-            <a href="/favorites">Favorites</a>
+            <Link to={`favorites`}>Favorites</Link>
           </Button>
           <Button variant="link">
-            <a href="/about">About</a>
+            <Link to={`about`}>About</Link>
           </Button>
           <ModeToggle />
         </div>
