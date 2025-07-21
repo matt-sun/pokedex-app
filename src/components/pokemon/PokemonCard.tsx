@@ -7,30 +7,35 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import TypeBadge from "./TypeBadge";
-import FavoriteButton from "./FavoriteButton";
+import TypeBadge from "@/components/pokemon/TypeBadge";
+import FavoriteButton from "@/components/layout/FavoriteButton";
 
-function PokemonCard() {
+interface Props {
+  id: number;
+  name: string;
+  spriteF: string;
+  spriteS?: string;
+  type1: string;
+  type2?: string;
+}
+
+function PokemonCard(props: Props) {
   return (
     <div>
       <Card className="w-auto">
         <CardHeader>
-          <CardTitle>Charizard</CardTitle>
-          <CardDescription>#0006</CardDescription>
+          <CardTitle className="capitalize">{props.name}</CardTitle>
+          <CardDescription># {props.id}</CardDescription>
           <CardAction>
             <FavoriteButton />
           </CardAction>
         </CardHeader>
         <CardContent>
-          <img
-            src="/src/assets/006.png"
-            alt="Charizard"
-            className="w-full h-auto"
-          />
+          <img src={props.spriteF} alt={props.name} className="w-full h-auto" />
         </CardContent>
-        <CardFooter className="flex w-full flex-wrap gap-2">
-          <TypeBadge />
-          <TypeBadge />
+        <CardFooter className="flex w-full flex-wrap gap-2 items-center">
+          <TypeBadge type={props.type1} />
+          <TypeBadge type={props.type2} />
         </CardFooter>
       </Card>
     </div>
