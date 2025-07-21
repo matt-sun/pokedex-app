@@ -38,7 +38,7 @@ function App() {
         const result1 = await client.get("https://pokeapi.co/api/v2/pokemon/", {
           params: {
             limit: 20,
-            offset: 0,
+            offset: 20,
           },
         });
         // What the API returns { results: [{ name, url }] }
@@ -60,11 +60,11 @@ function App() {
           console.log(result2[0].data);
 
           setPokemons(
-            result2.map<pokemon>((item) => ({
-              id: item.data.id,
-              name: item.data.name,
-              url: "https://pokeapi.co/api/v2/pokemon/" + item.data.id + "/",
-              // This is not ok yet, how do I fetch the name and url from Pokedata?
+            pokeData.map((item: pokemon, idx: number) => ({
+              ...item,
+              id: result2[idx].data.id,
+
+              // url: "https://pokeapi.co/api/v2/pokemon/" + item.data.id + "/",
             }))
           );
         } catch (error) {
@@ -82,7 +82,7 @@ function App() {
       {pokemons.map((pokemon) => (
         <div key={pokemon.id}>
           {pokemon.id}. {pokemon.name} @"
-          {pokemon.url}
+          {pokemon.url}"
         </div>
       ))}
       <Layout />
