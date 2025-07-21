@@ -7,12 +7,12 @@ function Logo() {
         fill="none"
         viewBox="0 0 20 20"
         stroke="currentColor"
-        stroke-width="2"
+        strokeWidth="2"
         aria-hidden="true"
       >
         <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           d="
     M3 2
     H13

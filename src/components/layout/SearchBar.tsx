@@ -15,12 +15,12 @@ function SearchBar() {
               fill="none"
               viewBox="0 0 20 20"
               stroke="currentColor"
-              stroke-width="2"
+              strokeWidth="2"
               aria-hidden="true"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 d="
     M10 1
     A9 9 0 0 1 19 10
@@ -62,9 +62,9 @@ function SearchBar() {
           >
             <path
               stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
             />
           </svg>
