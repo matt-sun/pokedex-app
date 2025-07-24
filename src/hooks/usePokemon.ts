@@ -1,33 +1,9 @@
 import { useEffect, useState } from "react";
 import axiosClient from "@/lib/api";
-
-interface pokemon {
-  id: number;
-  name: string;
-  url: string;
-  spriteFront: string;
-  spriteShiny?: string;
-  type1: string;
-  type2?: string;
-}
-
-// type pokemon = {
-//   stat: number; // HP, Attack, Defense, Special Attack, Special Defense, Speed
-//   ability: string; //Expand to show desc
-//   abilitiyDesc: string;
-//   move: string;
-//   movePwr: number;
-//   moveAcc: number;
-//   moveType: string;
-//   species: string; // We need to get the species from this endpoint: https://pokeapi.co/api/v2/pokemon-species/{id or name}/
-//   // Then we can get the evolution chain url from which we can extract the id https://pokeapi.co/api/v2/evolution-chain/2/
-//   evolution: string; // We use the id from right above to get the Evolution Chain.
-//   // Read doc to figure out how to get the ID the pokemon part of the evolution Chain
-//   location: string; // If applicable. This requires a specific endpoint https://pokeapi.co/api/v2/pokemon/{id or name}/encounters
-// };
+import type { Pokemon } from "@/lib/types";
 
 function API() {
-  const [pokemons, setPokemons] = useState<pokemon[]>([]);
+  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
 
   useEffect(() => {
     const client = axiosClient();
@@ -36,7 +12,7 @@ function API() {
       try {
         const result1 = await client.get("https://pokeapi.co/api/v2/pokemon/", {
           params: {
-            limit: 60,
+            limit: 20,
             offset: 0,
           },
         });
@@ -46,7 +22,7 @@ function API() {
         // console.log(pokeData);
 
         setPokemons(
-          pokeData.map((item: pokemon) => ({
+          pokeData.map((item: Pokemon) => ({
             name: item.name,
             url: item.url,
           }))
@@ -54,12 +30,12 @@ function API() {
 
         try {
           const result2 = await Promise.all(
-            pokeData.map(async (item: pokemon) => await client.get(item.url))
+            pokeData.map(async (item: Pokemon) => await client.get(item.url))
           );
           //   console.log(result2[0].data);
 
           setPokemons(
-            pokeData.map((item: pokemon, idx: number) => ({
+            pokeData.map((item: Pokemon, idx: number) => ({
               ...item,
               id: result2[idx].data.id,
               spriteFront:
@@ -72,6 +48,14 @@ function API() {
                 : "",
               type1: result2[idx].data.types[0].type.name,
               type2: result2[idx].data.types[1]?.type.name,
+              stats: {
+                hp: result2[idx].data.stats[0].base_stat,
+                attack: result2[idx].data.stats[1].base_stat,
+                defense: result2[idx].data.stats[2].base_stat,
+                speAtt: result2[idx].data.stats[3].base_stat,
+                speDef: result2[idx].data.stats[4].base_stat,
+                speed: result2[idx].data.stats[5].base_stat,
+              },
             }))
           );
         } catch (error) {
