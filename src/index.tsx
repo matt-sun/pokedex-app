@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "@/styles/index.css";
 import App from "@/App";
 import Home from "@/pages/Home";
-import Detail from "@/pages/Detail";
+import Pokemon, { Loader } from "@/pages/Pokemon";
 import Favorites from "@/pages/Favorites";
 import About from "@/pages/About";
 
@@ -14,12 +14,13 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "/",
+        index: true,
         element: <Home />,
       },
       {
-        path: "/detail/:id",
-        element: <Detail />,
+        path: "/pokemon/:name",
+        element: <Pokemon />,
+        loader: Loader,
       },
       {
         path: "/favorites",
