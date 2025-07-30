@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "@/styles/index.css";
 import App from "@/App";
 import Home from "@/pages/Home";
-import Pokemon, { Loader } from "@/pages/Pokemon";
+import Pokemon from "@/pages/Pokemon";
 import Favorites from "@/pages/Favorites";
 import About from "@/pages/About";
 
@@ -20,7 +20,6 @@ const router = createBrowserRouter([
       {
         path: "/pokemon/:name",
         element: <Pokemon />,
-        loader: Loader,
       },
       {
         path: "/favorites",
