@@ -34,7 +34,7 @@ export let db: IDBDatabase | undefined;
 async function createDatabase(): Promise<void> {
   return new Promise((resolve, reject) => {
     // Increment version number for new schema with metadata store
-    const request = window.indexedDB.open("PokedexDB", 10);
+    const request = window.indexedDB.open("PokedexDB", 1);
 
     request.onerror = (event) => {
       reject(
