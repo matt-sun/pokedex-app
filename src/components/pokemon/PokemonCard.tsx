@@ -11,11 +11,11 @@ import TypeBadge from "@/components/pokemon/TypeBadge";
 import FavoriteButton from "@/components/layout/FavoriteButton";
 
 interface Props {
-  id: number;
+  id?: number;
   name: string;
-  spriteF: string;
+  spriteF?: string;
   spriteS?: string;
-  type1: string;
+  type1?: string;
   type2?: string;
 }
 

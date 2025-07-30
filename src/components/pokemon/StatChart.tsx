@@ -4,12 +4,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { type ChartConfig, ChartContainer } from "@/components/ui/chart";
 
 interface Props {
-  hp: number;
-  attack: number;
-  defense: number;
-  speAtt: number;
-  speDef: number;
-  speed: number;
+  hp: number | undefined;
+  attack: number | undefined;
+  defense: number | undefined;
+  speAtt: number | undefined;
+  speDef: number | undefined;
+  speed: number | undefined;
 }
 
 const chartConfig = {
@@ -25,12 +25,32 @@ const chartConfig = {
 
 function StatChart(props: Props) {
   const chartData = [
-    { stat: "HP", power: props.hp, max: 255 - props.hp },
-    { stat: "Att", power: props.attack, max: 255 - props.attack },
-    { stat: "Def", power: props.defense, max: 255 - props.defense },
-    { stat: "Sp. Def.", power: props.speAtt, max: 255 - props.speAtt },
-    { stat: "Sp. Att.", power: props.speDef, max: 255 - props.speDef },
-    { stat: "Speed", power: props.speed, max: 255 - props.speed },
+    { stat: "HP", power: props.hp, max: props.hp ? 255 - props.hp : 255 },
+    {
+      stat: "Att",
+      power: props.attack,
+      max: props.attack ? 255 - props.attack : 255,
+    },
+    {
+      stat: "Def",
+      power: props.defense,
+      max: props.defense ? 255 - props.defense : 255,
+    },
+    {
+      stat: "Sp. Def.",
+      power: props.speAtt,
+      max: props.speAtt ? 255 - props.speAtt : 255,
+    },
+    {
+      stat: "Sp. Att.",
+      power: props.speDef,
+      max: props.speDef ? 255 - props.speDef : 255,
+    },
+    {
+      stat: "Speed",
+      power: props.speed,
+      max: props.speed ? 255 - props.speed : 255,
+    },
   ];
 
   return (
