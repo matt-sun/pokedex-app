@@ -1,74 +1,269 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axiosClient from "@/lib/api";
-import type { Pokemon } from "@/lib/types";
+import CachePokemonData from "@/lib/cache";
+import {
+  createDatabase,
+  getAllPokemon,
+  checkCacheValidity,
+  db,
+} from "@/lib/cache";
+import type {
+  Pokemon,
+  PokemonAbilities,
+  PokemonAPI,
+  AllPokemonAPI,
+  AbilitiesAPI,
+  AbilityAPI,
+  EffectAPI,
+  // LocationAreasAPI,
+  // LocationAreaAPI,
+  // LocationAPI,
+  // MovesAPI,
+  // MoveAPI,
+  // SpeciesAPI,
+  // EvolutionChainAPI,
+  // ChainLinkAPI,
+} from "@/lib/types";
 
-function API() {
+function usePokemonData() {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const client = axiosClient();
+
+  const handleError = (error: unknown, defaultMessage: string) => {
+    const message = error instanceof Error ? error.message : defaultMessage;
+    console.error(defaultMessage + ":", error);
+    if (mountedRef.current) {
+      setError(message);
+      setIsLoading(false);
+    }
+  };
+
+  // Use refs to track component state
+  const hasAttemptedLoad = useRef(false);
+  const mountedRef = useRef(true);
 
   useEffect(() => {
-    const client = axiosClient();
+    mountedRef.current = true;
 
-    const fetchPokemon = async () => {
+    if (hasAttemptedLoad.current) {
+      return;
+    }
+    hasAttemptedLoad.current = true;
+
+    const loadPokemon = async () => {
       try {
-        const result1 = await client.get("https://pokeapi.co/api/v2/pokemon/", {
-          params: {
-            limit: 20,
-            offset: 0,
-          },
-        });
-        // What the API returns { results: [{ name, url }] }
+        setIsLoading(true);
+        setPokemons([]); // Reset pokemon state
 
-        const pokeData = result1.data.results;
+        // First check if we have valid cached data
+        if (!db) {
+          await createDatabase();
+        }
+
+        const isCacheValid = await checkCacheValidity();
+        if (isCacheValid) {
+          const cachedData = await getAllPokemon();
+          if (cachedData?.length > 0 && mountedRef.current) {
+            setPokemons(cachedData);
+            setIsLoading(false);
+            return;
+          }
+        }
+
+        // If we get here, either cache was invalid or empty and
+        // we need to fetch fresh data
+        console.log("Fetching initial Pokemon data...");
+        const result1 = await client.get<{ results: AllPokemonAPI[] }>(
+          "https://pokeapi.co/api/v2/pokemon/",
+          {
+            params: {
+              limit: 20,
+              offset: 0,
+            },
+          }
+        );
+        console.log("Initial Pokemon data received:", result1.data);
+
+        const pokeData: AllPokemonAPI[] = result1.data.results;
         // console.log(pokeData);
 
-        setPokemons(
-          pokeData.map((item: Pokemon) => ({
-            name: item.name,
-            url: item.url,
-          }))
-        );
-
         try {
+          console.log("Fetching individual Pokemon details...");
           const result2 = await Promise.all(
-            pokeData.map(async (item: Pokemon) => await client.get(item.url))
+            pokeData.map(async (item: AllPokemonAPI) => {
+              console.log(`Fetching details for ${item.name}...`);
+              return await client.get<PokemonAPI>(item.url);
+            })
           );
-          //   console.log(result2[0].data);
+          console.log("All individual Pokemon details fetched");
+          // console.log(result2);
 
-          setPokemons(
-            pokeData.map((item: Pokemon, idx: number) => ({
-              ...item,
+          // This is the retrieved data from the Pokemon API in its base format
+          const pokeData2: PokemonAPI[] = [];
+
+          pokeData.map((_: AllPokemonAPI, idx: number) => {
+            const info: PokemonAPI = {
               id: result2[idx].data.id,
-              spriteFront:
-                result2[idx].data.sprites.other["official-artwork"]
-                  .front_default,
-              spriteShiny: result2[idx].data.sprites.other["official-artwork"]
-                .front_shiny
-                ? result2[idx].data.sprites.other["official-artwork"]
-                    .front_shiny
-                : "",
-              type1: result2[idx].data.types[0].type.name,
-              type2: result2[idx].data.types[1]?.type.name,
-              stats: {
-                hp: result2[idx].data.stats[0].base_stat,
-                attack: result2[idx].data.stats[1].base_stat,
-                defense: result2[idx].data.stats[2].base_stat,
-                speAtt: result2[idx].data.stats[3].base_stat,
-                speDef: result2[idx].data.stats[4].base_stat,
-                speed: result2[idx].data.stats[5].base_stat,
+              abilities: result2[idx].data.abilities,
+              location_area_encounters:
+                result2[idx].data.location_area_encounters,
+              moves: result2[idx].data.moves,
+              species: {
+                name: result2[idx].data.species.name,
+                url: result2[idx].data.species.url,
               },
-            }))
-          );
+              sprites: {
+                other: {
+                  ["official-artwork"]: {
+                    front_default:
+                      result2[idx].data.sprites.other["official-artwork"]
+                        .front_default,
+                    front_shiny:
+                      result2[idx].data.sprites.other["official-artwork"]
+                        .front_shiny,
+                  },
+                },
+              },
+              stats: result2[idx].data.stats,
+              types: result2[idx].data.types,
+            };
+            pokeData2.push(info);
+          });
+          // console.log(pokeData2);
+
+          const pokeAbilities: Array<AbilitiesAPI[]> = [];
+
+          pokeData2.map((item: PokemonAPI) => {
+            const abilityURLs: AbilitiesAPI[] = [];
+            item.abilities.map((item2: AbilitiesAPI) => {
+              const abilityInfo: AbilitiesAPI = {
+                is_hidden: item2.is_hidden,
+                ability: {
+                  name: item2.ability.name,
+                  url: item2.ability.url,
+                },
+              };
+              abilityURLs.push(abilityInfo);
+            });
+            pokeAbilities.push(abilityURLs);
+          });
+          // console.log(pokeAbilities);
+
+          try {
+            console.log("Fetching abilities data...");
+            const result3 = await Promise.all(
+              pokeAbilities.map(async (item: AbilitiesAPI[]) => {
+                return await Promise.all(
+                  item.map(async (item2: AbilitiesAPI) => {
+                    const response = await client.get<AbilityAPI>(
+                      item2.ability.url
+                    );
+                    return response.data;
+                  })
+                );
+              })
+            );
+
+            // console.log(result3);
+
+            console.log("Processing abilities effects...");
+            const pokeAbilitiesEffects: EffectAPI[][][] = [];
+
+            result3.map((arr) => {
+              const effectsPerPoke: EffectAPI[][] = [];
+              arr.map((sub_arr) => {
+                const effectPerLang: EffectAPI[] = [];
+                sub_arr.effect_entries.map((item) => {
+                  if (item.language?.name === "en") {
+                    const effectInfo: EffectAPI = {
+                      effect: item.effect,
+                      language: {
+                        name: item.language.name,
+                      },
+                      short_effect: item.short_effect,
+                    };
+                    effectPerLang.push(effectInfo);
+                  }
+                });
+                effectsPerPoke.push(effectPerLang);
+              });
+              pokeAbilitiesEffects.push(effectsPerPoke);
+            });
+            // console.log(pokeAbilitiesEffects);
+
+            // Cache the successfully fetched data
+            console.log("Starting data transformation process...");
+            console.log("Number of Pokemon to transform:", pokeData.length);
+            console.log("Abilities data available:", pokeAbilities.length);
+            try {
+              console.log("Starting final data transformation...");
+              const pokemonData = pokeData.map((item: Pokemon, idx: number) => {
+                console.log(`Transforming data for Pokemon ${item.name}...`);
+                return {
+                  ...item,
+                  name: item.name,
+                  url: item.url,
+                  id: result2[idx].data.id,
+                  sprites: {
+                    front:
+                      result2[idx].data.sprites.other["official-artwork"]
+                        .front_default,
+                    shiny:
+                      result2[idx].data.sprites.other["official-artwork"]
+                        .front_shiny || "",
+                  },
+                  types: {
+                    1: result2[idx].data.types[0].type.name,
+                    2: result2[idx].data.types[1]?.type.name,
+                  },
+                  stats: {
+                    hp: result2[idx].data.stats[0].base_stat,
+                    attack: result2[idx].data.stats[1].base_stat,
+                    defense: result2[idx].data.stats[2].base_stat,
+                    speAtt: result2[idx].data.stats[3].base_stat,
+                    speDef: result2[idx].data.stats[4].base_stat,
+                    speed: result2[idx].data.stats[5].base_stat,
+                  },
+                  abilities: pokeAbilities[idx].map((abil, abilIdx) => ({
+                    name: abil.ability.name,
+                    hidden: abil.is_hidden,
+                    effect: pokeAbilitiesEffects[idx][abilIdx][0].effect,
+                    shortened:
+                      pokeAbilitiesEffects[idx][abilIdx][0].short_effect,
+                  })) as PokemonAbilities[],
+                };
+              });
+
+              await CachePokemonData(pokemonData);
+
+              if (mountedRef.current) {
+                setPokemons(pokemonData);
+                setIsLoading(false);
+              }
+            } catch (error) {
+              handleError(error, "Failed to fetch ability data");
+            }
+          } catch (error) {
+            handleError(error, "Failed to fetch Pokemon details");
+          }
         } catch (error) {
-          console.error("Error fetching individual Pokemon data:", error);
+          handleError(error, "Failed to fetch Pokemon data");
         }
       } catch (error) {
-        console.error("Error fetching Pokemon API data:", error);
+        handleError(error, "Failed to fetch cached data");
       }
     };
-    fetchPokemon();
-  }, []);
 
-  return pokemons;
+    loadPokemon();
+
+    return () => {
+      mountedRef.current = false;
+    };
+  }, [client]); // Add client as dependency since it's used in the effect
+
+  return { pokemons, isLoading, error };
 }
 
-export default API;
+export default usePokemonData;
