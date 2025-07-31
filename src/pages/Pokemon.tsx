@@ -7,9 +7,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
-import { useContext, Fragment } from "react";
+// import { ScrollArea } from "@/components/ui/scroll-area";
+// import { Separator } from "@/components/ui/separator";
+import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { PokemonContext } from "@/App";
 
