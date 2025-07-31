@@ -34,7 +34,7 @@ interface PokemonEvolutions {
 }
 
 interface PokemonLocations {
-  name: string;
+  name?: string;
 }
 
 interface PokemonMoves {
@@ -72,21 +72,8 @@ interface EffectAPI {
   short_effect?: string;
 }
 
-interface LocationAreasAPI {
-  results: LocationAreaAPI[];
-}
-
 interface LocationAreaAPI {
   location_area: {
-    url: string;
-  };
-}
-//CHECK AGAIN
-interface LocationAPI {
-  names: {
-    language: {
-      name: string;
-    };
     name: string;
   };
 }
@@ -172,9 +159,7 @@ export type {
   AbilitiesAPI,
   AbilityAPI,
   EffectAPI,
-  LocationAreasAPI,
   LocationAreaAPI,
-  LocationAPI,
   MovesAPI,
   MoveAPI,
   SpeciesAPI,

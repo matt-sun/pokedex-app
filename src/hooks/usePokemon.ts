@@ -10,14 +10,13 @@ import {
 import type {
   Pokemon,
   PokemonAbilities,
+  PokemonLocations,
   PokemonAPI,
   AllPokemonAPI,
   AbilitiesAPI,
   AbilityAPI,
   EffectAPI,
-  // LocationAreasAPI,
-  // LocationAreaAPI,
-  // LocationAPI,
+  LocationAreaAPI,
   // MovesAPI,
   // MoveAPI,
   // SpeciesAPI,
@@ -75,6 +74,8 @@ function usePokemonData() {
         const result3 = await getAbilitiesData(pokeAbilities);
         const pokeAbilitiesEffects = await mergeAbilitiesData(result3);
 
+        const result4 = await getAndMergeLocationsData(pokeData2);
+
         try {
           // Merge the successfully fetched data
           console.log("Starting data transformation process...");
@@ -85,7 +86,9 @@ function usePokemonData() {
             pokeData,
             result2,
             pokeAbilities,
-            pokeAbilitiesEffects
+            pokeAbilitiesEffects,
+            result4
+            // pokeLocations
           );
 
           // Cache the successfully fetched data
@@ -146,7 +149,7 @@ async function getMainPokemonData(pokeData: AllPokemonAPI[]) {
   console.log("Fetching individual Pokemon details...");
   const result2 = await Promise.all(
     pokeData.map(async (item: AllPokemonAPI) => {
-      console.log(`Fetching details for ${item.name}...`);
+      // console.log(`Fetching details for ${item.name}...`);
       return await client.get<PokemonAPI>(item.url);
     })
   );
@@ -224,12 +227,13 @@ async function getAbilitiesData(pokeAbilities: Array<AbilitiesAPI[]>) {
       );
     })
   );
+  console.log("All abilities data fetched successfully");
   // console.log(result3);
   return result3;
 }
 
 async function mergeAbilitiesData(result3: AbilityAPI[][]) {
-  console.log("Processing abilities effects...");
+  console.log("Writing abilities effects...");
   const pokeAbilitiesEffects: EffectAPI[][][] = [];
 
   result3.map((arr) => {
@@ -252,19 +256,56 @@ async function mergeAbilitiesData(result3: AbilityAPI[][]) {
     });
     pokeAbilitiesEffects.push(effectsPerPoke);
   });
+  console.log("Abilities effects written successfully");
   // console.log(pokeAbilitiesEffects);
   return pokeAbilitiesEffects;
+}
+
+async function getAndMergeLocationsData(pokeData2: PokemonAPI[]) {
+  console.log("Fetching all locations list...");
+  const result4 = await Promise.all(
+    pokeData2.map(async (item: PokemonAPI) => {
+      // console.log(
+      //   `Fetching list of encounter locations for ${item.species.name}...`
+      // );
+      const response = await client.get<LocationAreaAPI[]>(
+        item.location_area_encounters
+      );
+      return response.data;
+    })
+  );
+  console.log("All locations lists fetched");
+  console.log(result4);
+
+  const pokeLocations: LocationAreaAPI[][] = [];
+
+  result4.map((arr) => {
+    const locationsPerPoke: LocationAreaAPI[] = [];
+    arr.map((item) => {
+      const locationInfo: LocationAreaAPI = {
+        location_area: {
+          name: item.location_area.name,
+        },
+      };
+      locationsPerPoke.push(locationInfo);
+    });
+    pokeLocations.push(locationsPerPoke);
+  });
+  console.log(pokeLocations);
+  console.log("All location data merged successfully");
+  return pokeLocations;
 }
 
 async function mergeFullPokemonData(
   pokeData: AllPokemonAPI[],
   result2: AxiosResponse<PokemonAPI>[],
   pokeAbilities: Array<AbilitiesAPI[]>,
-  pokeAbilitiesEffects: EffectAPI[][][]
+  pokeAbilitiesEffects: EffectAPI[][][],
+  result4: LocationAreaAPI[][]
 ) {
   console.log("Starting final data transformation...");
   const pokemonData = pokeData.map((item: Pokemon, idx: number) => {
-    console.log(`Transforming data for Pokemon ${item.name}...`);
+    // console.log(`Transforming data for Pokemon ${item.name}...`);
     return {
       ...item,
       name: item.name,
@@ -294,8 +335,12 @@ async function mergeFullPokemonData(
         effect: pokeAbilitiesEffects[idx][abilIdx][0].effect,
         shortened: pokeAbilitiesEffects[idx][abilIdx][0].short_effect,
       })) as PokemonAbilities[],
+      locations: result4[idx].map((_, locIdx) => ({
+        name: result4[idx][locIdx].location_area.name.replace(/-/g, " "),
+      })) as PokemonLocations[],
     };
   });
+  console.log("Final data transformation complete");
   return pokemonData;
 }
 
