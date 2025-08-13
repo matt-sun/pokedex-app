@@ -42,11 +42,11 @@
   --animate-description-out: description-out 0.4s ease-out;
   --animate-bounce-once: bounce-once 0.6s ease-out forwards;
   --animate-shine: shine 0.5s linear;
-  --animate-fade-in-left: fade-in-left 0.7s ease-out forwards;
-  --animate-fade-in-right: fade-in-right 0.7s ease-out forwards;
-  --animate-fade-in-up: fade-in-up 0.7s ease-out forwards;
-  --animate-fade-in-down: fade-in-down 0.7s ease-out forwards;
-  --animate-fade-in: fade-in 0.7s ease-out forwards;
+  --animate-fade-in-left: fade-in-left 0.6s ease-out forwards;
+  --animate-fade-in-right: fade-in-right 0.6s ease-out forwards;
+  --animate-fade-in-up: fade-in-up 0.6s ease-out forwards;
+  --animate-fade-in-down: fade-in-down 0.6s ease-out forwards;
+  --animate-fade-in: fade-in 0.6s ease-out forwards;
 
   @keyframes slide-down {
     from {
