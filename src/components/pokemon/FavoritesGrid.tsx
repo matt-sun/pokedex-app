@@ -32,9 +32,24 @@ function FavoritesGrid() {
         <Link
           key={pokemon.id}
           to={`../pokemon/${pokemon.id}`}
-          className={`flex flex-col flex-1 hover:animate-bounce-once transform transition-all duration-200 ease-in-out ${
+          className={`group rounded-xl overflow-hidden flex flex-col flex-1 hover:animate-bounce-once transform transition-all duration-200 ease-in-out ${
             activeCard === pokemon.id ? "scale-95 shadow-2xl" : ""
-          }`}
+          } hover:shadow-xl hover:bg-gray-300/50`}
+          style={{
+            animation: `${
+              pokemon.id
+                ? pokemon.id % 4 === 1
+                  ? "var(--animate-fade-in-right)"
+                  : pokemon.id % 4 === 2
+                  ? "var(--animate-fade-in-down)"
+                  : pokemon.id % 4 === 3
+                  ? "var(--animate-fade-in-up)"
+                  : "var(--animate-fade-in-left)"
+                : "none"
+            }`,
+            animationDelay: `${Math.random() * 0.5}s`,
+            opacity: 0,
+          }}
           onMouseDown={(e) => handleCardMouseDown(pokemon.id!, e)}
           onMouseUp={handleCardMouseUp}
           onMouseLeave={handleCardMouseUp}
@@ -47,6 +62,7 @@ function FavoritesGrid() {
             type1={pokemon.types?.[1]}
             type2={pokemon.types?.[2]}
           />
+          <div className="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-40 group-hover:animate-shine" />
         </Link>
       ))}
     </div>

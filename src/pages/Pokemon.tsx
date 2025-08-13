@@ -44,6 +44,11 @@ function Pokemon() {
       <div className="grid grid-cols-4 grid-rows-[auto] mx-auto my-8 w-[70%] max-w-4xl min-w-3xs gap-y-4 gap-x-4 justify-items-center">
         <div
           className={`col-span-4 row-span-2 grid grid-cols-subgrid grid-rows-subgrid gap-x-4 gap-y-0 content-start bg-linear-65 ${typeStyles.gradientLight1} ${typeStyles.gradientLight2} p-4 rounded-xl border-1 ${typeStyles.border} shadow-sm`}
+          style={{
+            animation: "var(--animate-fade-in)",
+            animationDelay: `${Math.random() * 0.5}s`,
+            opacity: 0,
+          }}
         >
           <div className="col-start-1 row-start-1 justify-self-start shadow-md">
             <Button
@@ -73,15 +78,30 @@ function Pokemon() {
           </div>
         </div>
 
-        <div className="col-start-1 row-start-3 col-span-2 row-span-1 h-auto w-full">
+        <div
+          className="col-start-1 row-start-3 col-span-2 row-span-1 h-auto w-full group rounded-xl overflow-hidden relative"
+          style={{
+            animation: "var(--animate-fade-in)",
+            animationDelay: `${Math.random() * 0.5}s`,
+            opacity: 0,
+          }}
+        >
           <img
             src={pokemon.sprites?.front}
             alt={pokemon.name}
             className="w-100 h-auto justify-self-center self-center"
           />
+          <div className="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-40 animate-shine" />
         </div>
 
-        <div className="col-start-3 row-start-3 col-span-2 row-span-1 self-center h-auto w-full shadow-sm">
+        <div
+          className="col-start-3 row-start-3 col-span-2 row-span-1 self-center h-auto w-full shadow-sm"
+          style={{
+            animation: "var(--animate-fade-in)",
+            animationDelay: `${Math.random() * 0.5}s`,
+            opacity: 0,
+          }}
+        >
           <StatChart
             hp={pokemon.stats?.hp}
             attack={pokemon.stats?.attack}
@@ -92,7 +112,14 @@ function Pokemon() {
           />
         </div>
 
-        <div className="col-start-1 col-span-2 row-start-4 row-span-1 h-auto w-full border rounded-xl shadow-sm bg-linear-65 from-blue-200 to-pink-200 border-purple-300/40">
+        <div
+          className="col-start-1 col-span-2 row-start-4 row-span-1 h-auto w-full border rounded-xl shadow-sm bg-linear-65 from-blue-200 to-pink-200 border-purple-300/40"
+          style={{
+            animation: "var(--animate-fade-in)",
+            animationDelay: `${Math.random() * 0.5}s`,
+            opacity: 0,
+          }}
+        >
           <div className="flex flex-col mx-4 py-4 justify-around h-full">
             {pokemon.genderRate !== -12.5 ? (
               <>
@@ -120,21 +147,42 @@ function Pokemon() {
           </div>
         </div>
 
-        <div className="col-start-3 col-span-1 row-start-4 row-span-1 h-auto w-full border rounded-xl shadow-sm bg-gradient-to-r from-pokemon-fire/10 to-pokemon-fire/5 border-pokemon-fire/20">
+        <div
+          className="col-start-3 col-span-1 row-start-4 row-span-1 h-auto w-full border rounded-xl shadow-sm bg-gradient-to-r from-pokemon-fire/10 to-pokemon-fire/5 border-pokemon-fire/20"
+          style={{
+            animation: "var(--animate-fade-in)",
+            animationDelay: `${Math.random() * 0.5}s`,
+            opacity: 0,
+          }}
+        >
           <div className="flex flex-col mx-4 py-4 justify-around h-full ">
             <p>H: {pokemon.height} m</p>
             <p>W: {pokemon.weight} kg</p>
           </div>
         </div>
 
-        <div className="col-start-4 col-span-1 row-start-4 row-span-1 h-auto w-full border rounded-xl shadow-sm bg-gradient-to-r from-pokemon-rock/10 to-pokemon-rock/5 border-pokemon-rock/20">
+        <div
+          className="col-start-4 col-span-1 row-start-4 row-span-1 h-auto w-full border rounded-xl shadow-sm bg-gradient-to-r from-pokemon-rock/10 to-pokemon-rock/5 border-pokemon-rock/20"
+          style={{
+            animation: "var(--animate-fade-in)",
+            animationDelay: `${Math.random() * 0.5}s`,
+            opacity: 0,
+          }}
+        >
           <div className="mx-4 my-4 capitalize">
             <h3>Growth:</h3>
             <p>{pokemon.growthRate}</p>
           </div>
         </div>
 
-        <div className="col-start-1 col-span-2 row-start-5 row-span-1 h-auto w-full border rounded-xl shadow-sm bg-gradient-to-r from-pokemon-psychic/10 to-pokemon-psychic/5 border-pokemon-psychic/20">
+        <div
+          className="col-start-1 col-span-2 row-start-5 row-span-1 h-auto w-full border rounded-xl shadow-sm bg-gradient-to-r from-pokemon-psychic/10 to-pokemon-psychic/5 border-pokemon-psychic/20"
+          style={{
+            animation: "var(--animate-fade-in)",
+            animationDelay: `${Math.random() * 0.5}s`,
+            opacity: 0,
+          }}
+        >
           <div className="flex flex-col mx-4 py-4 justify-around h-full">
             <h3>Egg groups:</h3>
             <p className="capitalize">
@@ -144,14 +192,28 @@ function Pokemon() {
           </div>
         </div>
 
-        <div className="col-start-3 col-span-2 row-start-5 row-span-1 h-auto w-full border rounded-xl shadow-sm bg-gradient-to-r from-pokemon-grass/10 to-pokemon-grass/5 border-pokemon-grass/20">
+        <div
+          className="col-start-3 col-span-2 row-start-5 row-span-1 h-auto w-full border rounded-xl shadow-sm bg-gradient-to-r from-pokemon-grass/10 to-pokemon-grass/5 border-pokemon-grass/20"
+          style={{
+            animation: "var(--animate-fade-in)",
+            animationDelay: `${Math.random() * 0.5}s`,
+            opacity: 0,
+          }}
+        >
           <div className="mx-4 my-4 capitalize">
             <p>Legendary: {pokemon.isLegendary ? "Yes" : "No"}</p>
             <p>Mythical: {pokemon.isMythical ? "Yes" : "No"}</p>
           </div>
         </div>
 
-        <div className="col-start-1 col-span-4 row-start-6 row-span-1 h-auto w-full border rounded-xl shadow-sm bg-gradient-to-r from-pokemon-electric/10 to-pokemon-electric/5 border-yellow-500/20">
+        <div
+          className="col-start-1 col-span-4 row-start-6 row-span-1 h-auto w-full border rounded-xl shadow-sm bg-gradient-to-r from-pokemon-electric/10 to-pokemon-electric/5 border-yellow-500/20"
+          style={{
+            animation: "var(--animate-fade-in)",
+            animationDelay: `${Math.random() * 0.5}s`,
+            opacity: 0,
+          }}
+        >
           <Accordion type="multiple" className="mx-4">
             <h3 className="mt-2 py-4 text-pokemon-blue">Abilities</h3>
             <div className="border-1 rounded-xl bg-pokemon-electric/30 border-pokemon-electric/50 mb-3 px-4">
@@ -169,7 +231,14 @@ function Pokemon() {
           </Accordion>
         </div>
 
-        <div className="col-start-1 col-span-4 row-start-7 row-span-1 h-auto w-full border rounded-xl shadow-sm bg-gradient-to-r from-pokemon-fighting/10 to-pokemon-fighting/5 border-pokemon-fighting/20">
+        <div
+          className="col-start-1 col-span-4 row-start-7 row-span-1 h-auto w-full border rounded-xl shadow-sm bg-gradient-to-r from-pokemon-fighting/10 to-pokemon-fighting/5 border-pokemon-fighting/20"
+          style={{
+            animation: "var(--animate-fade-in)",
+            animationDelay: `${Math.random() * 0.5}s`,
+            opacity: 0,
+          }}
+        >
           <Accordion type="multiple" className="mx-4">
             <AccordionItem value="item-1">
               <AccordionTrigger className="capitalize cursor-pointer text-base mt-2 text-pokemon-blue">
@@ -190,7 +259,14 @@ function Pokemon() {
           </Accordion>
         </div>
 
-        <div className="col-start-1 col-span-4 row-start-8 row-span-1 w-full border rounded-xl shadow-sm overflow-hidden  bg-gradient-to-r from-pokemon-blue/10 to-pokemon-blue/5 border-pokemon-blue/20">
+        <div
+          className="col-start-1 col-span-4 row-start-8 row-span-1 w-full border rounded-xl shadow-sm overflow-hidden  bg-gradient-to-r from-pokemon-blue/10 to-pokemon-blue/5 border-pokemon-blue/20"
+          style={{
+            animation: "var(--animate-fade-in)",
+            animationDelay: `${Math.random() * 0.5}s`,
+            opacity: 0,
+          }}
+        >
           <Accordion type="multiple" className="mx-4">
             <AccordionItem value="item-1">
               <AccordionTrigger className="capitalize cursor-pointer text-base mt-2 text-pokemon-blue">
@@ -216,7 +292,14 @@ function Pokemon() {
           </Accordion>
         </div>
 
-        <div className="col-start-1 col-span-4 row-start-9 row-span-1 h-auto w-full border rounded-xl shadow-sm overflow-hidden bg-gradient-to-r from-pokemon-steel/10 to-pokemon-steel/5 border-pokemon-steel/20">
+        <div
+          className="col-start-1 col-span-4 row-start-9 row-span-1 h-auto w-full border rounded-xl shadow-sm overflow-hidden bg-gradient-to-r from-pokemon-steel/10 to-pokemon-steel/5 border-pokemon-steel/20"
+          style={{
+            animation: "var(--animate-fade-in)",
+            animationDelay: `${Math.random() * 0.5}s`,
+            opacity: 0,
+          }}
+        >
           <div className="mx-4 my-6">
             <h3 className="text-pokemon-blue">Evolutions:</h3>
             {!pokemon.evolutions?.[0].evolvesTo ||

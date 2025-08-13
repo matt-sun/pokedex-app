@@ -2,7 +2,14 @@ function About() {
   return (
     <div className="mx-auto my-8 w-[70%] max-w-4xl min-w-3xs">
       {/* Hero Section */}
-      <div className="border rounded-xl shadow-sm mb-6 bg-gradient-to-br from-pokemon-red to-pokemon-boston-red text-white">
+      <div
+        className="border rounded-xl shadow-sm mb-6 bg-gradient-to-br from-pokemon-red to-pokemon-boston-red text-white"
+        style={{
+          animation: "var(--animate-fade-in-down)",
+          animationDelay: `${Math.random() * 0.5}s`,
+          opacity: 0,
+        }}
+      >
         <div className="p-8 text-center">
           <h1 className="text-4xl mb-6 text-pokemon-yellow drop-shadow-lg">
             About This Project
@@ -24,7 +31,14 @@ function About() {
       </div>
 
       {/* Tech Stack Section */}
-      <div className="border rounded-xl shadow-sm mb-6">
+      <div
+        className="border rounded-xl shadow-sm mb-6"
+        style={{
+          animation: "var(--animate-fade-in-right)",
+          animationDelay: `${Math.random() * 0.5}s`,
+          opacity: 0,
+        }}
+      >
         <div className="p-6">
           <h2 className="text-2xl font-semibold text-center mb-8 text-pokemon-blue">
             ⚡ Tech Stack
@@ -141,7 +155,14 @@ function About() {
       </div>
 
       {/* Learning Goals Section */}
-      <div className="border rounded-xl shadow-sm mb-6">
+      <div
+        className="border rounded-xl shadow-sm mb-6"
+        style={{
+          animation: "var(--animate-fade-in-left)",
+          animationDelay: `${Math.random() * 0.5}s`,
+          opacity: 0,
+        }}
+      >
         <div className="p-6">
           <h2 className="text-2xl font-semibold text-center mb-8 text-pokemon-blue">
             🎯 Learning Goals
@@ -235,7 +256,14 @@ function About() {
       </div>
 
       {/* Attribution Section */}
-      <div className="border rounded-xl shadow-sm bg-gradient-to-br from-pokemon-blue to-pokemon-water text-white">
+      <div
+        className="border rounded-xl shadow-sm bg-gradient-to-br from-pokemon-blue to-pokemon-water text-white"
+        style={{
+          animation: "var(--animate-fade-in-up)",
+          animationDelay: `${Math.random() * 0.5}s`,
+          opacity: 0,
+        }}
+      >
         <div className="p-6">
           <h2 className="text-2xl font-semibold text-center mb-8 text-pokemon-yellow">
             🙏 Attribution & Thanks
