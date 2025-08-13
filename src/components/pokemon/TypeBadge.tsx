@@ -86,11 +86,12 @@ function TypeBadge(props: Props) {
   }
 
   return (
-    <div>
+    <div className="flex-1">
       {props.type ? (
         <Badge
           variant="default"
-          className={`${typeColor} text-white dark:${typeColor} min-w-23 capitalize text-xs`}
+          className={`${typeColor} text-white dark:${typeColor} min-w-23
+           w-full max-w-28 capitalize text-xs`}
         >
           {props.type}
         </Badge>
