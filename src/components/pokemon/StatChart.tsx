@@ -1,5 +1,4 @@
 import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts";
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { type ChartConfig, ChartContainer } from "@/components/ui/chart";
 
