@@ -1,9 +1,300 @@
 function About() {
   return (
-    <div className="flex flex-col flex-1">
-      <h1 className="text-3xl text-center my-4 py-4">About</h1>
-      <div className="flex-1">
-        <p className="text-center">This is the About page.</p>
+    <div className="mx-auto my-8 w-[70%] max-w-4xl min-w-3xs">
+      {/* Hero Section */}
+      <div className="border rounded-xl shadow-sm mb-6 bg-gradient-to-br from-pokemon-red to-pokemon-boston-red text-white">
+        <div className="p-8 text-center">
+          <h1 className="text-4xl mb-6 text-pokemon-yellow drop-shadow-lg">
+            About This Project
+          </h1>
+          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+            <p className="text-lg leading-relaxed">
+              This project is a Pokedex App built with React and TypeScript as a
+              newbie developer coming from Vanilla Javascript and ExpressJS.{" "}
+              <br />
+              <br />I wanted to create a simple yet functional application that
+              would push me to learn more about React, TypeScript, caching,
+              testing, and deployment on modern apps. <br />
+              <br />
+              This app was made with little AI assistance, aside from design
+              choices and some code snippets to learn from to optimize my code.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Tech Stack Section */}
+      <div className="border rounded-xl shadow-sm mb-6">
+        <div className="p-6">
+          <h2 className="text-2xl font-semibold text-center mb-8 text-pokemon-blue">
+            ⚡ Tech Stack
+          </h2>
+
+          {/* Core Technologies */}
+          <div className="mb-8">
+            <h3 className="text-lg font-semibold mb-4 text-pokemon-red flex items-center gap-2">
+              <span className="text-xl">🔥</span> Core Technologies
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex items-start gap-3 bg-gradient-to-r from-pokemon-fire/10 to-pokemon-fire/5 border border-pokemon-fire/20 rounded-lg p-4">
+                <div className="w-3 h-3 bg-pokemon-fire rounded-full mt-1 flex-shrink-0 shadow-sm"></div>
+                <div>
+                  <span className="font-semibold block">React (Vite)</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Modern React framework
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 bg-gradient-to-r from-pokemon-blue/10 to-pokemon-blue/5 border border-pokemon-blue/20 rounded-lg p-4">
+                <div className="w-3 h-3 bg-pokemon-blue rounded-full mt-1 flex-shrink-0 shadow-sm"></div>
+                <div>
+                  <span className="font-semibold block">TypeScript</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Strict mode, no any
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Styling & UI */}
+          <div className="mb-8">
+            <h3 className="text-lg font-semibold mb-4 text-pokemon-water flex items-center gap-2">
+              <span className="text-xl">🎨</span> Styling & UI
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex items-start gap-3 bg-gradient-to-r from-pokemon-water/10 to-pokemon-water/5 border border-pokemon-water/20 rounded-lg p-4">
+                <div className="w-3 h-3 bg-pokemon-water rounded-full mt-1 flex-shrink-0 shadow-sm"></div>
+                <div>
+                  <span className="font-semibold block">Tailwind CSS</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Utility-first CSS framework
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 bg-gradient-to-r from-pokemon-electric/10 to-pokemon-electric/5 border border-yellow-500/20 rounded-lg p-4">
+                <div className="w-3 h-3 bg-pokemon-electric rounded-full mt-1 flex-shrink-0 shadow-sm"></div>
+                <div>
+                  <span className="font-semibold block">Shadcn/UI</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Beautiful component library
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Tools & Infrastructure */}
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-4 text-pokemon-grass flex items-center gap-2">
+              <span className="text-xl">🛠️</span> Tools & Infrastructure
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="flex items-start gap-3 bg-gradient-to-r from-pokemon-grass/10 to-pokemon-grass/5 border border-pokemon-grass/20 rounded-lg p-4">
+                <div className="w-3 h-3 bg-pokemon-grass rounded-full mt-1 flex-shrink-0 shadow-sm"></div>
+                <div>
+                  <span className="font-semibold block">React Router</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    v6.3 routing
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 bg-gradient-to-r from-pokemon-psychic/10 to-pokemon-psychic/5 border border-pokemon-psychic/20 rounded-lg p-4">
+                <div className="w-3 h-3 bg-pokemon-psychic rounded-full mt-1 flex-shrink-0 shadow-sm"></div>
+                <div>
+                  <span className="font-semibold block">ESLint + Prettier</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Code quality tools
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 bg-gradient-to-r from-pokemon-rock/10 to-pokemon-rock/5 border border-pokemon-rock/20 rounded-lg p-4">
+                <div className="w-3 h-3 bg-pokemon-rock rounded-full mt-1 flex-shrink-0 shadow-sm"></div>
+                <div>
+                  <span className="font-semibold block">IndexedDB</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Client-side caching
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 bg-gradient-to-r from-pokemon-fighting/10 to-pokemon-fighting/5 border border-pokemon-fighting/20 rounded-lg p-4">
+                <div className="w-3 h-3 bg-pokemon-fighting rounded-full mt-1 flex-shrink-0 shadow-sm"></div>
+                <div>
+                  <span className="font-semibold block">Jest + RTL</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Testing framework
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 bg-gradient-to-r from-pokemon-steel/10 to-pokemon-steel/5 border border-pokemon-steel/20 rounded-lg p-4 md:col-span-2 lg:col-span-1">
+                <div className="w-3 h-3 bg-pokemon-steel rounded-full mt-1 flex-shrink-0 shadow-sm"></div>
+                <div>
+                  <span className="font-semibold block">Vercel</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Deployment platform
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Learning Goals Section */}
+      <div className="border rounded-xl shadow-sm mb-6">
+        <div className="p-6">
+          <h2 className="text-2xl font-semibold text-center mb-8 text-pokemon-blue">
+            🎯 Learning Goals
+          </h2>
+
+          {/* Development Skills */}
+          <div className="mb-8">
+            <h3 className="text-lg font-semibold mb-4 text-pokemon-grass flex items-center gap-2">
+              <span className="text-xl">🚀</span> Development Skills
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex items-start gap-3 bg-gradient-to-r from-pokemon-grass/10 to-pokemon-grass/5 border border-pokemon-grass/20 rounded-lg p-4">
+                <div className="w-3 h-3 bg-pokemon-grass rounded-full mt-1 flex-shrink-0 shadow-sm"></div>
+                <div>
+                  <span className="font-semibold block">
+                    Modular React Architecture
+                  </span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Build maintainable, scalable codebases
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 bg-gradient-to-r from-pokemon-fire/10 to-pokemon-fire/5 border border-pokemon-fire/20 rounded-lg p-4">
+                <div className="w-3 h-3 bg-pokemon-fire rounded-full mt-1 flex-shrink-0 shadow-sm"></div>
+                <div>
+                  <span className="font-semibold block">
+                    TypeScript Mastery
+                  </span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Apply strict type safety across the app
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Technical Implementation */}
+          <div className="mb-8">
+            <h3 className="text-lg font-semibold mb-4 text-pokemon-water flex items-center gap-2">
+              <span className="text-xl">⚙️</span> Technical Implementation
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex items-start gap-3 bg-gradient-to-r from-pokemon-water/10 to-pokemon-water/5 border border-pokemon-water/20 rounded-lg p-4">
+                <div className="w-3 h-3 bg-pokemon-water rounded-full mt-1 flex-shrink-0 shadow-sm"></div>
+                <div>
+                  <span className="font-semibold block">API Integration</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Efficiently cache external data sources
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 bg-gradient-to-r from-pokemon-electric/10 to-pokemon-electric/5 border border-yellow-500/20 rounded-lg p-4">
+                <div className="w-3 h-3 bg-pokemon-electric rounded-full mt-1 flex-shrink-0 shadow-sm"></div>
+                <div>
+                  <span className="font-semibold block">Responsive Design</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Reusable UI components & layouts
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Quality & Polish */}
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-4 text-pokemon-psychic flex items-center gap-2">
+              <span className="text-xl">✨</span> Quality & Polish
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex items-start gap-3 bg-gradient-to-r from-pokemon-psychic/10 to-pokemon-psychic/5 border border-pokemon-psychic/20 rounded-lg p-4">
+                <div className="w-3 h-3 bg-pokemon-psychic rounded-full mt-1 flex-shrink-0 shadow-sm"></div>
+                <div>
+                  <span className="font-semibold block">Modern Theming</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Light/dark mode with UI primitives
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 bg-gradient-to-r from-pokemon-fairy/10 to-pokemon-fairy/5 border border-pokemon-fairy/20 rounded-lg p-4">
+                <div className="w-3 h-3 bg-pokemon-fairy rounded-full mt-1 flex-shrink-0 shadow-sm"></div>
+                <div>
+                  <span className="font-semibold block">Testing Coverage</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Automated tests for core logic
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Attribution Section */}
+      <div className="border rounded-xl shadow-sm bg-gradient-to-br from-pokemon-blue to-pokemon-water text-white">
+        <div className="p-6">
+          <h2 className="text-2xl font-semibold text-center mb-8 text-pokemon-yellow">
+            🙏 Attribution & Thanks
+          </h2>
+
+          {/* API & Data */}
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-4 text-pokemon-yellow flex items-center gap-2">
+              <span className="text-xl">📊</span> Data & API
+            </h3>
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+              <div className="flex items-start gap-3">
+                <div className="w-3 h-3 bg-pokemon-yellow rounded-full mt-1 flex-shrink-0 shadow-sm"></div>
+                <div>
+                  <span className="font-semibold block">
+                    <a
+                      href="https://pokeapi.co/"
+                      className="text-pokemon-yellow hover:text-white underline decoration-2 underline-offset-2 transition-colors"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      PokeAPI
+                    </a>
+                  </span>
+                  <span className="text-sm text-gray-200">
+                    Free and open Pokémon data and images
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* UI & Components */}
+          <div className="mb-4">
+            <h3 className="text-lg font-semibold mb-4 text-pokemon-yellow flex items-center gap-2">
+              <span className="text-xl">🎨</span> UI & Components
+            </h3>
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+              <div className="flex items-start gap-3">
+                <div className="w-3 h-3 bg-pokemon-yellow rounded-full mt-1 flex-shrink-0 shadow-sm"></div>
+                <div>
+                  <span className="font-semibold block">
+                    <a
+                      href="https://ui.shadcn.com/"
+                      className="text-pokemon-yellow hover:text-white underline decoration-2 underline-offset-2 transition-colors"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Shadcn/UI
+                    </a>
+                  </span>
+                  <span className="text-sm text-gray-200">
+                    Beautiful and accessible component library
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
