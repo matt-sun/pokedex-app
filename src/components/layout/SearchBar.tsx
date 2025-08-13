@@ -1,15 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { Form, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import { getPokemonURLByName } from "@/lib/api/indivPokeData";
+import {
+  getPokemonURLByName,
+  getPokemonURLByID,
+} from "@/lib/api/indivPokeData";
 import { TriangleAlert } from "lucide-react";
 
 function SearchBar({ suggestions }: { suggestions: string[] }) {
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
-  const [inputValue, setInputValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string | number>("");
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [originalInput, setOriginalInput] = useState<string>(""); // Store user's original input
+  const [originalInput, setOriginalInput] = useState<string | number>(""); // Store user's original input
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
@@ -72,7 +75,7 @@ function SearchBar({ suggestions }: { suggestions: string[] }) {
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent the default form submission behavior
 
-    const searchValue = inputValue.trim().toLowerCase();
+    const searchValue = inputValue.toString().trim().toLowerCase();
 
     // Validation
     if (!searchValue) {
@@ -84,7 +87,10 @@ function SearchBar({ suggestions }: { suggestions: string[] }) {
     setError("");
 
     try {
-      const pokeData = await getPokemonURLByName(searchValue);
+      const pokeData =
+        typeof inputValue === "string"
+          ? await getPokemonURLByName(searchValue)
+          : await getPokemonURLByID(searchValue);
       const pokemonId = pokeData.id;
 
       if (pokemonId) {
@@ -115,11 +121,11 @@ function SearchBar({ suggestions }: { suggestions: string[] }) {
   };
 
   useEffect(() => {
-    if (inputValue.length === 0 || isNavigatingRef.current) return;
+    if (inputValue.toString().length === 0 || isNavigatingRef.current) return;
 
     const timeoutId = setTimeout(() => {
       const filteredSuggestions = suggestions.filter((suggestion) =>
-        suggestion.toLowerCase().includes(inputValue.toLowerCase())
+        suggestion.toLowerCase().includes(inputValue.toString().toLowerCase())
       );
       setFilteredSuggestions(filteredSuggestions);
     }, 500);
