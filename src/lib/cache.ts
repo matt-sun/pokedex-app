@@ -1,6 +1,9 @@
-import type { Pokemon } from "./types";
+import type { Pokemon, AllPokemonAPI } from "./types";
 
-async function CachePokemonData(pokemonData: Pokemon[]) {
+export let db: IDBDatabase | undefined;
+let dbInitializationPromise: Promise<void> | null = null;
+
+async function CachePokemonData(pokemonData: Pokemon[] | Pokemon) {
   if (!indexedDBSupport()) {
     console.error("IndexedDB is not supported in this browser.");
     return;
@@ -8,17 +11,69 @@ async function CachePokemonData(pokemonData: Pokemon[]) {
 
   try {
     // Only initialize the database if it's not already initialized
-    if (!db) {
-      await createDatabase();
-    }
+    await ensureDatabaseInitialized();
 
     // Store the new data and update timestamp
-    await removeAllPokemon();
-    await addPokemons(pokemonData);
+    if (typeof pokemonData === "object" && !Array.isArray(pokemonData)) {
+      await addPokemon(pokemonData);
+    } else {
+      await addPokemons(pokemonData);
+    }
     await updateCacheTimestamp();
   } catch (error) {
     console.error("Error caching Pokemon data:", error);
   }
+}
+
+async function CacheDetailedPokemonData(pokemonData: Pokemon) {
+  if (!indexedDBSupport()) {
+    console.error("IndexedDB is not supported in this browser.");
+    return;
+  }
+
+  try {
+    // Only initialize the database if it's not already initialized
+    await ensureDatabaseInitialized();
+
+    // Store the detailed data and update timestamp
+    await addDetailedPokemon(pokemonData);
+    await updateCacheTimestamp();
+  } catch (error) {
+    console.error("Error caching detailed Pokemon data:", error);
+  }
+}
+
+async function CachePokemonNames(allPokemonNames: AllPokemonAPI[]) {
+  if (!indexedDBSupport()) {
+    console.error("IndexedDB is not supported in this browser.");
+    return;
+  }
+
+  try {
+    // Only initialize the database if it's not already initialized
+    await ensureDatabaseInitialized();
+
+    // Store the new data and update timestamp
+    await addPokemonNames(allPokemonNames);
+
+    await updateCacheTimestamp();
+  } catch (error) {
+    console.error("Error caching Pokemon names:", error);
+  }
+}
+
+async function ensureDatabaseInitialized(): Promise<void> {
+  if (db) {
+    return;
+  }
+
+  if (dbInitializationPromise) {
+    return dbInitializationPromise;
+  }
+
+  dbInitializationPromise = createDatabase();
+  await dbInitializationPromise;
+  dbInitializationPromise = null;
 }
 
 // Open IndexedDB to cache the Pokemon data.
@@ -29,11 +84,8 @@ function indexedDBSupport() {
   return "indexedDB" in window;
 }
 
-export let db: IDBDatabase | undefined;
-
 async function createDatabase(): Promise<void> {
   return new Promise((resolve, reject) => {
-    // Increment version number for new schema with metadata store
     const request = window.indexedDB.open("PokedexDB", 1);
 
     request.onerror = (event) => {
@@ -47,9 +99,26 @@ async function createDatabase(): Promise<void> {
 
       try {
         // Create the pokemon store
+        if (!database.objectStoreNames.contains("pokemonNames")) {
+          database
+            .createObjectStore("pokemonNames", {
+              keyPath: "name",
+            })
+            .createIndex("name", "name", { unique: true });
+        }
+
         if (!database.objectStoreNames.contains("pokemons")) {
           database
             .createObjectStore("pokemons", {
+              keyPath: "id",
+            })
+            .createIndex("id", "id", { unique: true });
+        }
+
+        // Create a separate store for detailed Pokemon data from individual pages
+        if (!database.objectStoreNames.contains("pokemonDetails")) {
+          database
+            .createObjectStore("pokemonDetails", {
               keyPath: "id",
             })
             .createIndex("id", "id", { unique: true });
@@ -60,6 +129,14 @@ async function createDatabase(): Promise<void> {
           database.createObjectStore("metadata", {
             keyPath: "key",
           });
+        }
+
+        if (!database.objectStoreNames.contains("favorites")) {
+          database
+            .createObjectStore("favorites", {
+              keyPath: "id",
+            })
+            .createIndex("id", "id", { unique: true });
         }
 
         // Use the transaction from the event for completion handling
@@ -74,14 +151,43 @@ async function createDatabase(): Promise<void> {
     };
 
     request.onsuccess = () => {
-      console.log("Successful database connection");
       db = request.result;
       resolve();
     };
   });
 }
 
+async function addPokemonNames(
+  allPokemonNames: AllPokemonAPI[]
+): Promise<void> {
+  await ensureDatabaseInitialized();
+
+  return new Promise((resolve, reject) => {
+    if (!db) {
+      reject(new Error("Database not initialized"));
+      return;
+    }
+
+    const transaction = db.transaction("pokemonNames", "readwrite");
+    const objectStore = transaction.objectStore("pokemonNames");
+
+    allPokemonNames.forEach((pokemonName) => {
+      objectStore.put(pokemonName);
+    });
+
+    transaction.oncomplete = () => {
+      resolve();
+    };
+
+    transaction.onerror = () => {
+      reject(new Error("Failed to add Pokemon Names to database"));
+    };
+  });
+}
+
 async function addPokemons(pokemonData: Pokemon[]): Promise<void> {
+  await ensureDatabaseInitialized();
+
   return new Promise((resolve, reject) => {
     if (!db) {
       reject(new Error("Database not initialized"));
@@ -96,7 +202,6 @@ async function addPokemons(pokemonData: Pokemon[]): Promise<void> {
     });
 
     transaction.oncomplete = () => {
-      console.log("All Pokemons have been added successfully.");
       resolve();
     };
 
@@ -106,7 +211,81 @@ async function addPokemons(pokemonData: Pokemon[]): Promise<void> {
   });
 }
 
+async function addPokemon(pokemonData: Pokemon): Promise<void> {
+  await ensureDatabaseInitialized();
+
+  return new Promise((resolve, reject) => {
+    if (!db) {
+      reject(new Error("Database not initialized"));
+      return;
+    }
+
+    const transaction = db.transaction("pokemons", "readwrite");
+    const objectStore = transaction.objectStore("pokemons");
+
+    objectStore.put(pokemonData);
+
+    transaction.oncomplete = () => {
+      resolve();
+    };
+
+    transaction.onerror = () => {
+      reject(new Error("Failed to add Pokemon to database"));
+    };
+  });
+}
+
+async function addDetailedPokemon(pokemonData: Pokemon): Promise<void> {
+  await ensureDatabaseInitialized();
+
+  return new Promise((resolve, reject) => {
+    if (!db) {
+      reject(new Error("Database not initialized"));
+      return;
+    }
+
+    const transaction = db.transaction("pokemonDetails", "readwrite");
+    const objectStore = transaction.objectStore("pokemonDetails");
+
+    objectStore.put(pokemonData);
+
+    transaction.oncomplete = () => {
+      resolve();
+    };
+
+    transaction.onerror = () => {
+      reject(new Error("Failed to add detailed Pokemon to database"));
+    };
+  });
+}
+
+async function addFavoritePokemon(pokemonData: Pokemon): Promise<void> {
+  await ensureDatabaseInitialized();
+
+  return new Promise((resolve, reject) => {
+    if (!db) {
+      reject(new Error("Database not initialized"));
+      return;
+    }
+
+    const transaction = db.transaction("favorites", "readwrite");
+    const objectStore = transaction.objectStore("favorites");
+
+    objectStore.put(pokemonData);
+
+    transaction.oncomplete = () => {
+      resolve();
+    };
+
+    transaction.onerror = () => {
+      reject(new Error("Failed to add Pokemon to favorites"));
+    };
+  });
+}
+
 async function getAllPokemon(): Promise<Pokemon[]> {
+  await ensureDatabaseInitialized();
+
   return new Promise((resolve, reject) => {
     if (!db) {
       reject(new Error("Database not initialized"));
@@ -122,8 +301,6 @@ async function getAllPokemon(): Promise<Pokemon[]> {
       const pokemons: Pokemon[] = request.result;
       // Sort by ID
       pokemons.sort((a, b) => (a.id || 0) - (b.id || 0));
-      console.log("Got all the Pokemons in order");
-      console.table(pokemons);
       resolve(pokemons);
     };
 
@@ -134,7 +311,9 @@ async function getAllPokemon(): Promise<Pokemon[]> {
   });
 }
 
-async function getPokemon(name: string): Promise<Pokemon> {
+async function getPokemon(id: string): Promise<Pokemon> {
+  await ensureDatabaseInitialized();
+
   return new Promise((resolve, reject) => {
     if (!db) {
       reject(new Error("Database not initialized"));
@@ -144,14 +323,10 @@ async function getPokemon(name: string): Promise<Pokemon> {
     const request = db
       .transaction("pokemons", "readonly")
       .objectStore("pokemons")
-      .get(name);
+      .get(Number(id));
 
     request.onsuccess = () => {
       const pokemon: Pokemon = request.result;
-      if (!pokemon) {
-        reject(new Error(`Pokemon ${name} not found`));
-        return;
-      }
       resolve(pokemon);
     };
 
@@ -162,49 +337,141 @@ async function getPokemon(name: string): Promise<Pokemon> {
   });
 }
 
-// async function updatePokemons(id: number): Promise<void> {
-//   return new Promise((resolve, reject) => {
-//     if (!db) {
-//       reject(new Error("Database not initialized"));
-//       return;
-//     }
+async function getDetailedPokemon(id: string): Promise<Pokemon> {
+  await ensureDatabaseInitialized();
 
-//     const transaction = db.transaction("pokemons", "readwrite");
-//     const objectStore = transaction.objectStore("pokemons");
-//     const request = objectStore.get(id);
+  return new Promise((resolve, reject) => {
+    if (!db) {
+      reject(new Error("Database not initialized"));
+      return;
+    }
 
-//     request.onsuccess = () => {
-//       const pokemon: Pokemon = request.result;
-//       if (!pokemon) {
-//         reject(new Error(`Pokemon with id ${id} not found`));
-//         return;
-//       }
+    const request = db
+      .transaction("pokemonDetails", "readonly")
+      .objectStore("pokemonDetails")
+      .get(Number(id));
 
-//       // Note: We should update the Pokemon type to include the favorite property
-//       pokemon.favorite = !pokemon.favorite;
+    request.onsuccess = () => {
+      const pokemon: Pokemon = request.result;
+      resolve(pokemon);
+    };
 
-//       const updateRequest = objectStore.put(pokemon);
-//       updateRequest.onsuccess = () => {
-//         console.log(
-//           `Pokemon ${pokemon.name} favorite status updated successfully`
-//         );
-//         resolve();
-//       };
+    request.onerror = (err) => {
+      console.error(`Error getting detailed Pokemon information:`, err);
+      reject(err);
+    };
+  });
+}
 
-//       updateRequest.onerror = (err) => {
-//         console.error(`Error updating Pokemon:`, err);
-//         reject(err);
-//       };
-//     };
+async function getAllPokemonNames(): Promise<AllPokemonAPI[]> {
+  await ensureDatabaseInitialized();
 
-//     request.onerror = (err) => {
-//       console.error(`Error getting Pokemon:`, err);
-//       reject(err);
-//     };
-//   });
-// }
+  return new Promise((resolve, reject) => {
+    if (!db) {
+      reject(new Error("Database not initialized"));
+      return;
+    }
+
+    const request = db
+      .transaction("pokemonNames", "readonly")
+      .objectStore("pokemonNames")
+      .getAll();
+
+    request.onsuccess = () => {
+      const pokemonNames: AllPokemonAPI[] = request.result;
+      resolve(pokemonNames);
+    };
+
+    request.onerror = (err) => {
+      console.error(`Error getting Pokemon information:`, err);
+      reject(err);
+    };
+  });
+}
+
+async function getPokemonName(search: string): Promise<string> {
+  await ensureDatabaseInitialized();
+
+  return new Promise((resolve, reject) => {
+    if (!db) {
+      reject(new Error("Database not initialized"));
+      return;
+    }
+
+    const request = db
+      .transaction("pokemonNames", "readonly")
+      .objectStore("pokemonNames")
+      .get(search);
+
+    request.onsuccess = () => {
+      const pokemon: string = request.result;
+      resolve(pokemon);
+    };
+
+    request.onerror = (err) => {
+      console.error(`Error getting Pokemon information:`, err);
+      reject(err);
+    };
+  });
+}
+
+async function getAllFavoritePokemon(): Promise<Pokemon[]> {
+  await ensureDatabaseInitialized();
+
+  return new Promise((resolve, reject) => {
+    if (!db) {
+      reject(new Error("Database not initialized"));
+      return;
+    }
+
+    const request = db
+      .transaction("favorites", "readonly")
+      .objectStore("favorites")
+      .getAll();
+
+    request.onsuccess = () => {
+      const pokemons: Pokemon[] = request.result;
+      // Sort by ID
+      pokemons.sort((a, b) => (a.id || 0) - (b.id || 0));
+      resolve(pokemons);
+    };
+
+    request.onerror = (err) => {
+      console.error(`Error getting favorite Pokemon:`, err);
+      reject(err);
+    };
+  });
+}
+
+async function getFavoritePokemon(id: string): Promise<Pokemon> {
+  await ensureDatabaseInitialized();
+
+  return new Promise((resolve, reject) => {
+    if (!db) {
+      reject(new Error("Database not initialized"));
+      return;
+    }
+
+    const request = db
+      .transaction("favorites", "readonly")
+      .objectStore("favorites")
+      .get(Number(id));
+
+    request.onsuccess = () => {
+      const pokemon: Pokemon = request.result;
+      resolve(pokemon);
+    };
+
+    request.onerror = (err) => {
+      console.error(`Error getting Pokemon information:`, err);
+      reject(err);
+    };
+  });
+}
 
 async function removeAllPokemon(): Promise<void> {
+  await ensureDatabaseInitialized();
+
   if (!db) throw new Error("Database not initialized");
 
   const transaction = db.transaction("pokemons", "readwrite");
@@ -218,8 +485,42 @@ async function removeAllPokemon(): Promise<void> {
   });
 }
 
+async function removeFavoritePokemon(id: string): Promise<void> {
+  await ensureDatabaseInitialized();
+
+  if (!db) throw new Error("Database not initialized");
+
+  const transaction = db.transaction("favorites", "readwrite");
+  const objectStore = transaction.objectStore("favorites");
+
+  return new Promise((resolve, reject) => {
+    const request = objectStore.delete(Number(id));
+
+    request.onsuccess = () => resolve();
+    request.onerror = (err) => reject(err);
+  });
+}
+
+async function removeAllFavoritePokemon(): Promise<void> {
+  await ensureDatabaseInitialized();
+
+  if (!db) throw new Error("Database not initialized");
+
+  const transaction = db.transaction("favorites", "readwrite");
+  const objectStore = transaction.objectStore("favorites");
+
+  return new Promise((resolve, reject) => {
+    const request = objectStore.clear();
+
+    request.onsuccess = () => resolve();
+    request.onerror = (err) => reject(err);
+  });
+}
+
 // Cache management functions
 async function updateCacheTimestamp(): Promise<void> {
+  await ensureDatabaseInitialized();
+
   if (!db) throw new Error("Database not initialized");
 
   const transaction = db.transaction("metadata", "readwrite");
@@ -237,6 +538,8 @@ async function updateCacheTimestamp(): Promise<void> {
 }
 
 async function checkCacheValidity(): Promise<boolean> {
+  await ensureDatabaseInitialized();
+
   if (!db) throw new Error("Database not initialized");
 
   const transaction = db.transaction("metadata", "readonly");
@@ -254,9 +557,9 @@ async function checkCacheValidity(): Promise<boolean> {
 
       const now = new Date().getTime();
       const cacheAge = now - data.timestamp;
-      const twoHours = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
+      const tenDays = 10 * 24 * 60 * 60 * 1000; // 10 days in milliseconds
 
-      resolve(cacheAge < twoHours);
+      resolve(cacheAge < tenDays);
     };
 
     request.onerror = () => resolve(false);
@@ -266,13 +569,26 @@ async function checkCacheValidity(): Promise<boolean> {
 export default CachePokemonData;
 
 export {
+  CachePokemonData,
+  CacheDetailedPokemonData,
+  CachePokemonNames,
   indexedDBSupport,
   createDatabase,
+  addPokemonNames,
   addPokemons,
+  addPokemon,
+  addDetailedPokemon,
+  addFavoritePokemon,
   getAllPokemon,
   getPokemon,
-  //   updatePokemons,
+  getDetailedPokemon,
+  getAllPokemonNames,
+  getPokemonName,
+  getAllFavoritePokemon,
+  getFavoritePokemon,
   removeAllPokemon,
+  removeFavoritePokemon,
+  removeAllFavoritePokemon,
   checkCacheValidity,
   updateCacheTimestamp,
 };
