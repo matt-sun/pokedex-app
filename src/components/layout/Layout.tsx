@@ -4,9 +4,9 @@ import Footer from "@/components/layout/Footer";
 
 function Layout() {
   return (
-    <div className="font-pokemon flex min-h-screen flex-col bg-gray-200">
+    <div className="font-pokemon min-h-screen bg-gray-200 flex flex-col">
       <Header />
-      <main className="grow mx-4">
+      <main className="mx-4 mt-4 pb-4 flex-1 flex flex-col">
         <Outlet />
       </main>
       <Footer />
