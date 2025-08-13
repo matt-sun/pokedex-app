@@ -37,8 +37,8 @@ function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 pt-4 bg-gray-200">
-      <div className="mx-4 bg-pokemon-red p-4 rounded-2xl">
+    <header className="sticky top-0 z-50 pt-4 bg-gray-200 text-white">
+      <div className="mx-4 bg-pokemon-boston-red p-4 rounded-2xl">
         <nav className="grid grid-cols-3 center">
           <div className="flex items-center gap-3 justify-self-start">
             <Logo />
