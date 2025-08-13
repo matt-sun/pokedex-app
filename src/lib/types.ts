@@ -3,7 +3,6 @@
 interface Pokemon {
   id?: number;
   name: string;
-  url: string;
   sprites?: { front: string; shiny: string };
   types?: { 1: string; 2: string };
   stats?: {
@@ -18,8 +17,20 @@ interface Pokemon {
   evolutions?: PokemonEvolutions[];
   locations?: PokemonLocations[];
   moves?: PokemonMoves[];
-  // favorite: boolean;
+  cries?: string;
+  genderRate?: number; // in 8ths, -1 means genderless
+  growthRate?: string;
+  eggGroups?: {
+    // Types essentially
+    1: string;
+    2: string;
+  };
+  height?: number;
+  weight?: number;
+  isLegendary?: boolean;
+  isMythical?: boolean;
 }
+// favorite: boolean;
 
 interface PokemonAbilities {
   name: string;
@@ -30,7 +41,10 @@ interface PokemonAbilities {
 
 interface PokemonEvolutions {
   name: string;
+  id: number;
   sprite: string;
+  types: { 1: string; 2?: string };
+  evolvesTo?: PokemonEvolutions[];
 }
 
 interface PokemonLocations {
@@ -39,10 +53,35 @@ interface PokemonLocations {
 
 interface PokemonMoves {
   name: string;
+  description: string;
+  effectChance: number;
+  damageClass: string;
   accuracy: number;
   power: number;
   pp: number;
   type: string;
+}
+
+interface PokemonContextType {
+  result: {
+    pokemons: Pokemon[];
+    isLoading: boolean;
+    error: string | null;
+  };
+  setResult: React.Dispatch<
+    React.SetStateAction<{
+      pokemons: Pokemon[];
+      isLoading: boolean;
+      error: string | null;
+    }>
+  >;
+}
+
+interface IndexContextType {
+  startIndex: number;
+  setStartIndex: React.Dispatch<React.SetStateAction<number>>;
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
 // Pokedex API Responses
@@ -86,7 +125,19 @@ interface MoveAPI {
   accuracy: number;
   power: number;
   pp: number;
+  effect_chance: number | null;
+  damage_class: {
+    name: string;
+  };
   type: {
+    name: string;
+  };
+  flavor_text_entries: MoveDescriptionAPI[];
+}
+
+interface MoveDescriptionAPI {
+  flavor_text: string;
+  language: {
     name: string;
   };
 }
@@ -95,25 +146,33 @@ interface SpeciesAPI {
   evolution_chain: {
     url: string;
   };
+  gender_rate: number; // in 8ths, -1 means genderless
+  growth_rate: {
+    name: string;
+  };
+  egg_groups: EggGroupsAPI[];
+  is_legendary: boolean;
+  is_mythical: boolean;
+}
+
+interface EggGroupsAPI {
+  name: string;
 }
 
 interface EvolutionChainAPI {
-  baby_trigger_item: string;
   chain: {
     species: {
       name: string;
-      url: string;
     };
-    evolves_to: ChainLinkAPI[];
+    evolves_to?: ChainLinkAPI[];
   };
 }
 
 interface ChainLinkAPI {
   species: {
     name: string;
-    url: string;
   };
-  evolves_to: ChainLinkAPI[];
+  evolves_to?: ChainLinkAPI[];
 }
 
 interface StatsAPI {
@@ -130,11 +189,11 @@ interface TypesAPI {
 
 interface PokemonAPI {
   id: number;
+  name: string;
   abilities: AbilitiesAPI[];
   location_area_encounters: string;
   moves: MovesAPI[];
   species: {
-    name: string;
     url: string;
   };
   sprites: {
@@ -147,6 +206,11 @@ interface PokemonAPI {
   };
   stats: StatsAPI[];
   types: TypesAPI[];
+  cries: {
+    latest: string;
+  };
+  height: number; // in dm
+  weight: number; // in hg
 }
 
 export type {
@@ -155,6 +219,8 @@ export type {
   PokemonEvolutions,
   PokemonLocations,
   PokemonMoves,
+  PokemonContextType,
+  IndexContextType,
   AllPokemonAPI,
   AbilitiesAPI,
   AbilityAPI,
@@ -162,7 +228,9 @@ export type {
   LocationAreaAPI,
   MovesAPI,
   MoveAPI,
+  MoveDescriptionAPI,
   SpeciesAPI,
+  EggGroupsAPI,
   EvolutionChainAPI,
   ChainLinkAPI,
   StatsAPI,
