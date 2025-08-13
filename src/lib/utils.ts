@@ -97,5 +97,9 @@ export function getPokemonTypeStyles(type1?: string, type2?: string) {
     borderLight: `border-${color1}/20`,
     background1: `bg-${color1}`,
     background2: `bg-${color2}`,
+    hoverBackground1: `hover:bg-${color1}/60`,
+    hoverBackground2: `hover:bg-${color2}/60`,
+    activeBackground1: `active:bg-${color1}`,
+    activeBackground2: `active:bg-${color2}`,
   };
 }

@@ -50,7 +50,7 @@ function Pokemon() {
               variant="outline"
               size="icon"
               onClick={() => new Audio(pokemon.cries).play()}
-              className="cursor-pointer hover:bg-gray-300 active:bg-gray-400"
+              className={`cursor-pointer ${typeStyles.hoverBackground1} ${typeStyles.activeBackground1}`}
             >
               <Volume2 strokeWidth={2.5} />
             </Button>
