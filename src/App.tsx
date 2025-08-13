@@ -1,30 +1,42 @@
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import Layout from "@/components/layout/Layout";
-import type { Pokemon } from "@/lib/types";
-import { createContext } from "react";
-import usePokemonData from "@/hooks/usePokemon";
-
-interface PokemonContextType {
-  pokemons: Pokemon[];
-  isLoading: boolean;
-  error: string | null;
-}
+import { createContext, useState } from "react";
+import useMainPokemonData from "@/hooks/usePokemon";
+import type { PokemonContextType, IndexContextType } from "@/lib/types";
 
 const PokemonContext = createContext<PokemonContextType>({
-  pokemons: [],
-  isLoading: true,
-  error: null,
+  result: {
+    pokemons: [],
+    isLoading: true,
+    error: null,
+  },
+  setResult: () => {},
+});
+
+const IndexContext = createContext<IndexContextType>({
+  startIndex: 0,
+  setStartIndex: () => {},
+  currentPage: 1,
+  setCurrentPage: () => {},
 });
 
 function App() {
-  const result = usePokemonData();
+  const [startIndex, setStartIndex] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Use hook directly, not useState
+  const result = useMainPokemonData(startIndex);
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <PokemonContext.Provider value={result}>
-        <div>
-          <Layout />
-        </div>
+      <PokemonContext.Provider value={{ result, setResult: () => {} }}>
+        <IndexContext.Provider
+          value={{ startIndex, setStartIndex, currentPage, setCurrentPage }}
+        >
+          <div>
+            <Layout />
+          </div>
+        </IndexContext.Provider>
       </PokemonContext.Provider>
     </ThemeProvider>
   );
@@ -32,4 +44,4 @@ function App() {
 
 export default App;
 
-export { PokemonContext };
+export { PokemonContext, IndexContext };
