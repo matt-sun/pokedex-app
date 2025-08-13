@@ -55,7 +55,7 @@ function StatChart(props: Props) {
   return (
     <Card className="min-h-full">
       <CardHeader>
-        <CardTitle>Base Stats</CardTitle>
+        <CardTitle className="text-pokemon-blue">Base Stats</CardTitle>
       </CardHeader>
       <CardContent>
         <ChartContainer

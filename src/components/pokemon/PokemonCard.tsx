@@ -52,7 +52,7 @@ function PokemonCard(props: Props) {
         <CardContent className="flex-1 flex items-center">
           <img src={props.spriteF} alt={props.name} className="w-full h-auto" />
         </CardContent>
-        <CardFooter className="flex flex-1 w-full flex-wrap items-center gap-2">
+        <CardFooter className="flex flex-1 w-full items-center gap-2">
           <TypeBadge type={props.type1} />
           <TypeBadge type={props.type2} />
         </CardFooter>

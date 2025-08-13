@@ -81,7 +81,7 @@ function MovesTable<TData, TValue>({
   });
 
   return (
-    <div className="w-full">
+    <div className="w-full p-2">
       <Table className="w-full table-fixed">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
