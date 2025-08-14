@@ -9,7 +9,7 @@ function TypeBadge(props: Props) {
   const typeColor = getPokemonTypeColor(props.type);
 
   return (
-    <div className="flex-1">
+    <div className="flex-1 text-center">
       {props.type ? (
         <Badge
           variant="default"
