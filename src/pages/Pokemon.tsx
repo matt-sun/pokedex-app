@@ -321,7 +321,7 @@ function Pokemon() {
                     <img
                       src={pokemon.evolutions?.[0].sprite}
                       alt={pokemon.evolutions?.[0].name}
-                      className="max-w-50 w-full h-auto border-4 rounded-full border-gray-500/50 shadow-md hover:scale-105 transition-transform duration-200 ease-in-out"
+                      className="max-w-50 w-full h-auto border-4 rounded-full border-gray-500/50 shadow-md hover:scale-105 hover:shadow-lg transition-transform duration-200 ease-in-out"
                     />
                   </Link>
 
@@ -356,7 +356,7 @@ function Pokemon() {
                         <img
                           src={evolution.sprite}
                           alt={evolution.name}
-                          className="max-w-50 w-full h-auto border-4 border-gray-500/50 shadow-md rounded-full hover:scale-105 transition-transform duration-200 ease-in-out"
+                          className="max-w-50 w-full h-auto border-4 border-gray-500/50 shadow-md rounded-full hover:scale-105 hover:shadow-lg transition-transform duration-200 ease-in-out"
                         />
                       </Link>
                       <div className="py-1 mt-2 text-sm text-center">
@@ -383,7 +383,7 @@ function Pokemon() {
                         <img
                           src={evolution.sprite}
                           alt={evolution.name}
-                          className="max-w-50 w-full h-auto border-4 border-gray-500/50 shadow-md rounded-full hover:scale-105 transition-transform duration-200 ease-in-out"
+                          className="max-w-50 w-full h-auto border-4 border-gray-500/50 shadow-md rounded-full hover:scale-105 hover:shadow-lg transition-transform duration-200 ease-in-out"
                         />
                       </Link>
                       <div className="py-1 mt-2 text-sm text-center">
@@ -431,7 +431,7 @@ function Pokemon() {
                             <img
                               src={maxEvolution.sprite}
                               alt={maxEvolution.name}
-                              className="max-w-50 w-full h-auto border-4 border-gray-500/50 shadow-md rounded-full hover:scale-105 transition-transform duration-200 ease-in-out"
+                              className="max-w-50 w-full h-auto border-4 border-gray-500/50 shadow-md rounded-full hover:scale-105 hover:shadow-lg transition-transform duration-200 ease-in-out"
                             />
                           </Link>
                           <div className="py-1 mt-2 text-sm text-center">
