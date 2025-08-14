@@ -204,7 +204,7 @@ function SearchBar({ suggestions }: { suggestions: string[] }) {
         <div className="relative w-full">
           <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
             <svg
-              className="w-5 h-5 text-black dark:text-white"
+              className="w-5 h-5 text-gray-500"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 20 20"
@@ -236,7 +236,7 @@ function SearchBar({ suggestions }: { suggestions: string[] }) {
           <input
             type="text"
             id="simple-search"
-            className="capitalize bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pokemon-blue focus:border-pokemon-blue block w-full ps-10 p-2.5  dark:bg-gray-300 dark:border-gray-400 dark:placeholder-gray-500 dark:text-gray-900 dark:focus:ring-pokemon-blue dark:focus:border-pokemon-blue"
+            className="capitalize border text-sm rounded-lg bg-gray-200 border-gray-300 text-gray-900 focus:ring-pokemon-red focus:border-pokemon-red block w-full ps-10 p-2.5 dark:bg-gray-900 dark:border-gray-200 dark:placeholder-gray-500 dark:text-gray-200 dark:focus:ring-pokemon-blue dark:focus:border-pokemon-blue"
             placeholder="Name or number..."
             required
             value={inputValue}
@@ -249,7 +249,7 @@ function SearchBar({ suggestions }: { suggestions: string[] }) {
           {error && (
             <div
               ref={refError}
-              className="flex items-center absolute p-2 w-full z-2000 text-pokemon-boston-red text-sm mt-1 bg-gray-200 rounded-md shadow-xl border-1 border-gray-600"
+              className="flex items-center absolute p-2 w-full z-2000 text-sm mt-1 text-pokemon-boston-red dark:text-pokemon-blue bg-gray-200 dark:bg-gray-900 rounded-lg shadow-xl dark:shadow-md dark:shadow-gray-600 border-1 border-gray-600 dark:border-gray-200"
             >
               <TriangleAlert className="mr-2 w-12" strokeWidth={2} />
               <div className="w-fit">{error}</div>
@@ -257,21 +257,17 @@ function SearchBar({ suggestions }: { suggestions: string[] }) {
           )}
           {isOpen && filteredSuggestions.length > 0 && (
             <ul
-              className="absolute max-h-100 overflow-auto top-full left-0 bg-gray-100 border-0 border-t-0 rounded-md shadow-xl list-none z-1000 w-full"
+              className="absolute max-h-100 overflow-auto top-full left-0 bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-gray-200 dark:shadow-md dark:shadow-gray-500 border-0 border-t-0 rounded-md shadow-xl list-none z-1000 w-full"
               ref={ref}
             >
               {filteredSuggestions.map((suggestion, index) => (
                 <li
                   key={index}
-                  className="capitalize text-sm px-4 py-2 cursor-pointer hover:bg-red-400"
+                  className="capitalize text-sm px-4 py-2 cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-500"
                   onClick={() => handleSelect(suggestion)}
                   onMouseEnter={() => setFocusedIndex(index)}
                   onMouseLeave={() => setFocusedIndex(null)}
                   ref={index === focusedIndex ? resultContainer : null}
-                  style={{
-                    backgroundColor:
-                      index === focusedIndex ? "lightgray" : "transparent",
-                  }}
                 >
                   {suggestion}
                 </li>
@@ -283,7 +279,7 @@ function SearchBar({ suggestions }: { suggestions: string[] }) {
           type="submit"
           variant="default"
           size="icon"
-          className="cursor-pointer p-2.5 ms-2 text-sm font-medium text-white bg-amber-300 rounded-lg border border-pokemon-blue hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-400 dark:bg-pokemon-blue dark:hover:bg-blue-800 dark:focus:ring-blue-500"
+          className="cursor-pointer p-2.5 ms-2 text-sm font-medium text-white bg-pokemon-blue rounded-lg border border-pokemon-blue hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-400 dark:bg-pokemon-blue dark:hover:bg-blue-800 dark:focus:ring-blue-500"
           disabled={isLoading}
         >
           {isLoading ? (

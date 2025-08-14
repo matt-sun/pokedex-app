@@ -61,7 +61,10 @@ function FavoriteButton({ pokemonId, pokemon }: Props) {
           isFavorite ? "bg-pokemon-boston-red" : "bg-red-400"
         }`}
       >
-        <Heart strokeWidth={3} fill={isFavorite ? "black" : "none"} />
+        <Heart
+          strokeWidth={3}
+          className={isFavorite ? "fill-gray-900 dark:fill-gray-200" : "none"}
+        />
       </Button>
     </div>
   );

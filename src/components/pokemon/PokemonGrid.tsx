@@ -53,7 +53,7 @@ function PokemonGrid() {
             to={`pokemon/${pokemon.id}`}
             className={`group rounded-xl overflow-hidden flex flex-col flex-1 hover:-translate-y-2 transform transition-all duration-300 ease-in-out ${
               activeCard === pokemon.id ? "scale-95 shadow-2xl" : ""
-            } hover:shadow-xl hover:bg-gray-300/50`}
+            } hover:shadow-xl hover:bg-gray-300/50 dark:hover:bg-gray-700/50 dark:shadow-gray-200 dark:hover:shadow-md`}
             style={{
               animation: `${
                 pokemon.id
@@ -81,7 +81,7 @@ function PokemonGrid() {
               type1={pokemon.types?.[1]}
               type2={pokemon.types?.[2]}
             />
-            <div className="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-40 group-hover:animate-shine" />
+            <div className="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-40 dark:from-transparent dark:to-gray-200 group-hover:animate-shine" />
           </Link>
         ))}
     </div>

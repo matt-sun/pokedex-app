@@ -43,7 +43,7 @@ function Pokemon() {
     return (
       <div className="grid grid-cols-4 grid-rows-[auto] mx-auto my-8 w-[70%] max-w-4xl min-w-3xs gap-y-4 gap-x-4 justify-items-center">
         <div
-          className={`col-span-4 row-span-2 grid grid-cols-subgrid grid-rows-subgrid gap-x-4 gap-y-0 content-start bg-linear-65 ${typeStyles.gradientLight1} ${typeStyles.gradientLight2} p-4 rounded-xl border-1 ${typeStyles.border} shadow-sm`}
+          className={`col-span-4 row-span-2 grid grid-cols-subgrid grid-rows-subgrid gap-x-4 gap-y-0 content-start bg-linear-65 ${typeStyles.gradientLight1} ${typeStyles.gradientLight2} p-4 rounded-xl border-1 ${typeStyles.border} shadow-sm dark:shadow-gray-700`}
           style={{
             animation: "var(--animate-fade-in)",
             animationDelay: `${Math.random() * 0.5}s`,
@@ -113,14 +113,14 @@ function Pokemon() {
         </div>
 
         <div
-          className="col-start-1 col-span-2 row-start-4 row-span-1 h-auto w-full border rounded-xl shadow-sm bg-linear-65 from-blue-200 to-pink-200 border-purple-300/40"
+          className="col-start-1 col-span-2 row-start-4 row-span-1 h-auto w-full border rounded-xl shadow-sm dark:shadow-gray-700 bg-linear-65 from-blue-200 to-pink-200 border-purple-300/40 dark:bg-linear-45 dark:from-blue-600/20 dark:to-pink-600/20 dark:border-purple-600/20"
           style={{
             animation: "var(--animate-fade-in)",
             animationDelay: `${Math.random() * 0.5}s`,
             opacity: 0,
           }}
         >
-          <div className="flex flex-col mx-4 py-4 justify-around h-full">
+          <div className="flex flex-col mx-4 py-4 justify-around h-full dark:drop-shadow-xs dark:drop-shadow-gray-700">
             {pokemon.genderRate !== -12.5 ? (
               <>
                 <div className="shadow-md">
@@ -148,7 +148,7 @@ function Pokemon() {
         </div>
 
         <div
-          className="col-start-3 col-span-1 row-start-4 row-span-1 h-auto w-full border rounded-xl shadow-sm bg-gradient-to-r from-pokemon-fire/10 to-pokemon-fire/5 border-pokemon-fire/20"
+          className="col-start-3 col-span-1 row-start-4 row-span-1 h-auto w-full border rounded-xl shadow-sm dark:shadow-gray-700 bg-gradient-to-r from-pokemon-fire/10 to-pokemon-fire/5 border-pokemon-fire/20"
           style={{
             animation: "var(--animate-fade-in)",
             animationDelay: `${Math.random() * 0.5}s`,
@@ -162,7 +162,7 @@ function Pokemon() {
         </div>
 
         <div
-          className="col-start-4 col-span-1 row-start-4 row-span-1 h-auto w-full border rounded-xl shadow-sm bg-gradient-to-r from-pokemon-rock/10 to-pokemon-rock/5 border-pokemon-rock/20"
+          className="col-start-4 col-span-1 row-start-4 row-span-1 h-auto w-full border rounded-xl shadow-sm dark:shadow-gray-700 bg-gradient-to-r from-pokemon-rock/10 to-pokemon-rock/5 border-pokemon-rock/20"
           style={{
             animation: "var(--animate-fade-in)",
             animationDelay: `${Math.random() * 0.5}s`,
@@ -176,7 +176,7 @@ function Pokemon() {
         </div>
 
         <div
-          className="col-start-1 col-span-2 row-start-5 row-span-1 h-auto w-full border rounded-xl shadow-sm bg-gradient-to-r from-pokemon-psychic/10 to-pokemon-psychic/5 border-pokemon-psychic/20"
+          className="col-start-1 col-span-2 row-start-5 row-span-1 h-auto w-full border rounded-xl shadow-sm dark:shadow-gray-700 bg-gradient-to-r from-pokemon-psychic/10 to-pokemon-psychic/5 border-pokemon-psychic/20"
           style={{
             animation: "var(--animate-fade-in)",
             animationDelay: `${Math.random() * 0.5}s`,
@@ -193,7 +193,7 @@ function Pokemon() {
         </div>
 
         <div
-          className="col-start-3 col-span-2 row-start-5 row-span-1 h-auto w-full border rounded-xl shadow-sm bg-gradient-to-r from-pokemon-grass/10 to-pokemon-grass/5 border-pokemon-grass/20"
+          className="col-start-3 col-span-2 row-start-5 row-span-1 h-auto w-full border rounded-xl shadow-sm dark:shadow-gray-700 bg-gradient-to-r from-pokemon-grass/10 to-pokemon-grass/5 border-pokemon-grass/20"
           style={{
             animation: "var(--animate-fade-in)",
             animationDelay: `${Math.random() * 0.5}s`,
@@ -207,7 +207,7 @@ function Pokemon() {
         </div>
 
         <div
-          className="col-start-1 col-span-4 row-start-6 row-span-1 h-auto w-full border rounded-xl shadow-sm bg-gradient-to-r from-pokemon-electric/10 to-pokemon-electric/5 border-yellow-500/20"
+          className="col-start-1 col-span-4 row-start-6 row-span-1 h-auto w-full border rounded-xl shadow-sm dark:shadow-gray-700 bg-gradient-to-r from-pokemon-electric/10 to-pokemon-electric/5 border-yellow-500/20"
           style={{
             animation: "var(--animate-fade-in)",
             animationDelay: `${Math.random() * 0.5}s`,
@@ -215,14 +215,16 @@ function Pokemon() {
           }}
         >
           <Accordion type="multiple" className="mx-4">
-            <h3 className="mt-2 py-4 text-pokemon-blue">Abilities</h3>
+            <h3 className="mt-2 py-4 text-pokemon-blue dark:text-pokemon-gold">
+              Abilities
+            </h3>
             <div className="border-1 rounded-xl bg-pokemon-electric/30 border-pokemon-electric/50 mb-3 px-4">
               {pokemon.abilities?.map((ability, index) => (
                 <AccordionItem value={`item-${index}`} key={index}>
-                  <AccordionTrigger className="capitalize cursor-pointer">
+                  <AccordionTrigger className="capitalize cursor-pointer text-gray-900 dark:text-gray-200">
                     {ability.hidden ? ability.name + " (Hidden)" : ability.name}
                   </AccordionTrigger>
-                  <AccordionContent className="text-gray-500">
+                  <AccordionContent className="text-gray-500 dark:text-gray-300/80">
                     {ability.effect}
                   </AccordionContent>
                 </AccordionItem>
@@ -232,7 +234,7 @@ function Pokemon() {
         </div>
 
         <div
-          className="col-start-1 col-span-4 row-start-7 row-span-1 h-auto w-full border rounded-xl shadow-sm bg-gradient-to-r from-pokemon-fighting/10 to-pokemon-fighting/5 border-pokemon-fighting/20"
+          className="col-start-1 col-span-4 row-start-7 row-span-1 h-auto w-full border rounded-xl shadow-sm dark:shadow-gray-700 bg-gradient-to-r from-pokemon-fighting/10 to-pokemon-fighting/5 border-pokemon-fighting/20"
           style={{
             animation: "var(--animate-fade-in)",
             animationDelay: `${Math.random() * 0.5}s`,
@@ -241,10 +243,10 @@ function Pokemon() {
         >
           <Accordion type="multiple" className="mx-4">
             <AccordionItem value="item-1">
-              <AccordionTrigger className="capitalize cursor-pointer text-base mt-2 text-pokemon-blue">
+              <AccordionTrigger className="capitalize cursor-pointer text-base mt-2 text-pokemon-blue dark:text-pokemon-gold">
                 Encounter Locations
               </AccordionTrigger>
-              <AccordionContent className="border-1 rounded-xl bg-pokemon-fighting/20 border-pokemon-fighting/30 mb-3">
+              <AccordionContent className="border-1 rounded-xl bg-pokemon-fighting/20 border-pokemon-fighting/30 mb-3 text-gray-900 dark:text-gray-200">
                 {pokemon.locations && pokemon.locations.length > 0 ? (
                   pokemon.locations.map((location, index) => (
                     <div key={index} className="capitalize text-sm mt-3 mx-4">
@@ -260,7 +262,7 @@ function Pokemon() {
         </div>
 
         <div
-          className="col-start-1 col-span-4 row-start-8 row-span-1 w-full border rounded-xl shadow-sm overflow-hidden  bg-gradient-to-r from-pokemon-blue/10 to-pokemon-blue/5 border-pokemon-blue/20"
+          className="col-start-1 col-span-4 row-start-8 row-span-1 w-full border rounded-xl shadow-sm overflow-hidden dark:shadow-gray-700 bg-gradient-to-r from-pokemon-blue/10 to-pokemon-blue/5 border-pokemon-blue/20"
           style={{
             animation: "var(--animate-fade-in)",
             animationDelay: `${Math.random() * 0.5}s`,
@@ -269,10 +271,10 @@ function Pokemon() {
         >
           <Accordion type="multiple" className="mx-4">
             <AccordionItem value="item-1">
-              <AccordionTrigger className="capitalize cursor-pointer text-base mt-2 text-pokemon-blue">
+              <AccordionTrigger className="capitalize cursor-pointer text-base mt-2 text-pokemon-blue dark:text-pokemon-gold">
                 Moves
               </AccordionTrigger>
-              <AccordionContent className="border-1 rounded-xl bg-pokemon-blue/20 border-pokemon-blue/30 mb-3">
+              <AccordionContent className="border-1 rounded-xl bg-pokemon-blue/20 border-pokemon-blue/30 mb-3 text-gray-900 dark:text-gray-200">
                 <ScrollArea className="h-150 w-full">
                   <MovesTable
                     columns={columns}
@@ -280,11 +282,7 @@ function Pokemon() {
                   />
                   <ScrollBar
                     orientation="vertical"
-                    className="w-2 bg-gray-300 opacity-50 rounded-2xl"
-                  />
-                  <ScrollBar
-                    orientation="horizontal"
-                    className="h-2 bg-gray-300 opacity-50 rounded-2xl"
+                    className="w-2 bg-gray-300 dark:bg-gray-700 opacity-50 rounded-2xl"
                   />
                 </ScrollArea>
               </AccordionContent>
@@ -293,7 +291,7 @@ function Pokemon() {
         </div>
 
         <div
-          className="col-start-1 col-span-4 row-start-9 row-span-1 h-auto w-full border rounded-xl shadow-sm overflow-hidden bg-gradient-to-r from-pokemon-steel/10 to-pokemon-steel/5 border-pokemon-steel/20"
+          className="col-start-1 col-span-4 row-start-9 row-span-1 h-auto w-full border rounded-xl shadow-sm overflow-hidden dark:shadow-gray-700 bg-gradient-to-r from-pokemon-steel/10 to-pokemon-steel/5 border-pokemon-steel/20"
           style={{
             animation: "var(--animate-fade-in)",
             animationDelay: `${Math.random() * 0.5}s`,
@@ -301,7 +299,9 @@ function Pokemon() {
           }}
         >
           <div className="mx-4 my-6">
-            <h3 className="text-pokemon-blue">Evolutions:</h3>
+            <h3 className="text-pokemon-blue dark:text-pokemon-gold">
+              Evolutions:
+            </h3>
             {!pokemon.evolutions?.[0].evolvesTo ||
             pokemon.evolutions[0].evolvesTo.length === 0 ? (
               <p className="text-sm capitalize mt-3">
@@ -321,7 +321,7 @@ function Pokemon() {
                     <img
                       src={pokemon.evolutions?.[0].sprite}
                       alt={pokemon.evolutions?.[0].name}
-                      className="max-w-50 w-full h-auto border-4 rounded-full border-gray-500/50 shadow-md hover:scale-105 hover:shadow-lg transition-transform duration-200 ease-in-out"
+                      className="max-w-50 w-full h-auto border-4 rounded-full border-gray-500/50 shadow-md hover:scale-105 hover:shadow-lg dark:hover:shadow-gray-200 dark:hover:shadow-md transition-transform duration-200 ease-in-out"
                     />
                   </Link>
 
@@ -356,7 +356,7 @@ function Pokemon() {
                         <img
                           src={evolution.sprite}
                           alt={evolution.name}
-                          className="max-w-50 w-full h-auto border-4 border-gray-500/50 shadow-md rounded-full hover:scale-105 hover:shadow-lg transition-transform duration-200 ease-in-out"
+                          className="max-w-50 w-full h-auto border-4 border-gray-500/50 shadow-md rounded-full hover:scale-105 hover:shadow-lg dark:hover:shadow-gray-200 dark:hover:shadow-md transition-transform duration-200 ease-in-out"
                         />
                       </Link>
                       <div className="py-1 mt-2 text-sm text-center">
@@ -383,7 +383,7 @@ function Pokemon() {
                         <img
                           src={evolution.sprite}
                           alt={evolution.name}
-                          className="max-w-50 w-full h-auto border-4 border-gray-500/50 shadow-md rounded-full hover:scale-105 hover:shadow-lg transition-transform duration-200 ease-in-out"
+                          className="max-w-50 w-full h-auto border-4 border-gray-500/50 shadow-md rounded-full hover:scale-105 hover:shadow-lg dark:hover:shadow-gray-200 dark:hover:shadow-md transition-transform duration-200 ease-in-out"
                         />
                       </Link>
                       <div className="py-1 mt-2 text-sm text-center">
@@ -431,7 +431,7 @@ function Pokemon() {
                             <img
                               src={maxEvolution.sprite}
                               alt={maxEvolution.name}
-                              className="max-w-50 w-full h-auto border-4 border-gray-500/50 shadow-md rounded-full hover:scale-105 hover:shadow-lg transition-transform duration-200 ease-in-out"
+                              className="max-w-50 w-full h-auto border-4 border-gray-500/50 shadow-md rounded-full hover:scale-105 hover:shadow-lg dark:hover:shadow-gray-200 dark:hover:shadow-md transition-transform duration-200 ease-in-out"
                             />
                           </Link>
                           <div className="py-1 mt-2 text-sm text-center">

@@ -55,7 +55,9 @@ function StatChart(props: Props) {
   return (
     <Card className="min-h-full">
       <CardHeader>
-        <CardTitle className="text-pokemon-blue">Base Stats</CardTitle>
+        <CardTitle className="text-pokemon-blue dark:text-pokemon-gold">
+          Base Stats
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <ChartContainer
@@ -81,20 +83,20 @@ function StatChart(props: Props) {
             <Bar
               dataKey="power"
               stackId="a"
-              fill="var(--color-pokemon-blue)"
+              className="fill-pokemon-blue dark:fill-pokemon-gold"
               radius={[0, 0, 8, 8]}
             >
               <LabelList
                 position="top"
                 offset={12}
-                className="fill-foreground"
+                className="fill-foreground fill-gray-400 dark:fill-gray-200"
                 fontSize={12}
               />
             </Bar>
             <Bar
               dataKey="max"
               stackId="a"
-              fill="var(--color-pokemon-blue)"
+              className="fill-pokemon-blue/70 dark:fill-pokemon-gold/70"
               opacity={0.3}
               radius={[8, 8, 0, 0]}
             />

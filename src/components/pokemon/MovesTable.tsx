@@ -144,7 +144,7 @@ function MovesTable<TData, TValue>({
                           : "animate-description-out"
                       }`}
                     >
-                      <div className="text-sm text-gray-500 text-wrap">
+                      <div className="text-sm text-gray-500 dark:text-gray-300/80 text-wrap">
                         {row.getValue("description")}
                       </div>
                     </TableCell>

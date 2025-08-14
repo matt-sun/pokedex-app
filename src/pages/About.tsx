@@ -3,7 +3,7 @@ function About() {
     <div className="mx-auto my-8 w-[70%] max-w-4xl min-w-3xs">
       {/* Hero Section */}
       <div
-        className="border rounded-xl shadow-sm mb-6 bg-gradient-to-br from-pokemon-boston-red to-red-400 text-white"
+        className="border rounded-xl shadow-sm dark:shadow-gray-700 mb-6 bg-gradient-to-br from-pokemon-boston-red to-red-400 dark:from-red-900 dark:to-red-700/20"
         style={{
           animation: "var(--animate-fade-in-down)",
           animationDelay: `${Math.random() * 0.5}s`,
@@ -11,10 +11,10 @@ function About() {
         }}
       >
         <div className="p-8 text-center">
-          <h1 className="text-4xl mb-6 text-pokemon-yellow drop-shadow-lg">
+          <h1 className="text-4xl mb-6 text-pokemon-gold drop-shadow-lg">
             About This Project
           </h1>
-          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+          <div className="bg-gray-200/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
             <p className="text-lg leading-relaxed">
               This project is a Pokedex App built with React and TypeScript as a
               newbie developer coming from Vanilla Javascript and ExpressJS.{" "}
@@ -33,7 +33,7 @@ function About() {
 
       {/* Tech Stack Section */}
       <div
-        className="border rounded-xl shadow-sm mb-6"
+        className="border rounded-xl shadow-sm mb-6 dark:shadow-gray-700"
         style={{
           animation: "var(--animate-fade-in-right)",
           animationDelay: `${Math.random() * 0.5}s`,
@@ -157,7 +157,7 @@ function About() {
 
       {/* Learning Goals Section */}
       <div
-        className="border rounded-xl shadow-sm mb-6"
+        className="border rounded-xl shadow-sm mb-6 dark:shadow-gray-700"
         style={{
           animation: "var(--animate-fade-in-left)",
           animationDelay: `${Math.random() * 0.5}s`,
@@ -258,7 +258,7 @@ function About() {
 
       {/* Attribution Section */}
       <div
-        className="border rounded-xl shadow-sm bg-gradient-to-br from-pokemon-blue to-pokemon-water/80 text-white"
+        className="border rounded-xl shadow-sm dark:shadow-gray-700 bg-gradient-to-br from-pokemon-blue to-pokemon-water/80 dark:from-blue-900 dark:to-blue-600/10"
         style={{
           animation: "var(--animate-fade-in-up)",
           animationDelay: `${Math.random() * 0.5}s`,
@@ -266,23 +266,23 @@ function About() {
         }}
       >
         <div className="p-6">
-          <h2 className="text-2xl font-semibold text-center mb-8 text-pokemon-yellow">
+          <h2 className="text-2xl font-semibold text-center mb-8 text-pokemon-gold">
             Attribution & Thanks
           </h2>
 
           {/* API & Data */}
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-4 text-pokemon-yellow flex items-center gap-2">
+            <h3 className="text-lg font-semibold mb-4 text-pokemon-gold flex items-center gap-2">
               <span className="text-xl">📊</span> Data & API
             </h3>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
               <div className="flex items-start gap-3">
-                <div className="w-3 h-3 bg-pokemon-yellow rounded-full mt-1 flex-shrink-0 shadow-sm"></div>
+                <div className="w-3 h-3 bg-pokemon-gold rounded-full mt-1 flex-shrink-0 shadow-sm"></div>
                 <div>
                   <span className="font-semibold block">
                     <a
                       href="https://pokeapi.co/"
-                      className="text-pokemon-yellow hover:text-white underline decoration-2 underline-offset-2 transition-colors"
+                      className="text-pokemon-gold hover:text-white underline decoration-2 underline-offset-2 transition-colors"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -299,17 +299,17 @@ function About() {
 
           {/* UI & Components */}
           <div className="mb-4">
-            <h3 className="text-lg font-semibold mb-4 text-pokemon-yellow flex items-center gap-2">
+            <h3 className="text-lg font-semibold mb-4 text-pokemon-gold flex items-center gap-2">
               <span className="text-xl">🎨</span> UI & Components
             </h3>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
               <div className="flex items-start gap-3">
-                <div className="w-3 h-3 bg-pokemon-yellow rounded-full mt-1 flex-shrink-0 shadow-sm"></div>
+                <div className="w-3 h-3 bg-pokemon-gold rounded-full mt-1 flex-shrink-0 shadow-sm"></div>
                 <div>
                   <span className="font-semibold block">
                     <a
                       href="https://ui.shadcn.com/"
-                      className="text-pokemon-yellow hover:text-white underline decoration-2 underline-offset-2 transition-colors"
+                      className="text-pokemon-gold hover:text-white underline decoration-2 underline-offset-2 transition-colors"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
