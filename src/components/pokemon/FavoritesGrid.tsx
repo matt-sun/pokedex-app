@@ -32,7 +32,7 @@ function FavoritesGrid() {
         <Link
           key={pokemon.id}
           to={`../pokemon/${pokemon.id}`}
-          className={`group rounded-xl overflow-hidden flex flex-col flex-1 hover:animate-bounce-once transform transition-all duration-200 ease-in-out ${
+          className={`group rounded-xl overflow-hidden flex flex-col flex-1 hover:-translate-y-2 transform transition-all duration-200 ease-in-out ${
             activeCard === pokemon.id ? "scale-95 shadow-2xl" : ""
           } hover:shadow-xl hover:bg-gray-300/50`}
           style={{
