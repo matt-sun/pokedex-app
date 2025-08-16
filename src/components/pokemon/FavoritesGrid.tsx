@@ -27,12 +27,12 @@ function FavoritesGrid() {
   };
 
   return (
-    <div className="my-4 py-4 grid grid-cols-4 mx-auto w-[90%] max-w-6xl min-w-2xs min-h-full rounded-2xl gap-6 justify-items-center grow">
+    <div className="my-1 py-1 sm:my-2 sm:py-2 md:my-4 md:py-4 grid xl:grid-cols-[1fr_1fr_1fr_1fr_1fr] lg:grid-cols-[1fr_1fr_1fr_1fr] md:grid-cols-[1fr_1fr_1fr] sm:grid-cols-[1fr_1fr] grid-cols-1 mx-auto w-[95%] max-w-7xl min-w-sm rounded-2xl gap-6 justify-items-center grow">
       {pokemons.pokemons.sort().map((pokemon: Pokemon) => (
         <Link
           key={pokemon.id}
           to={`../pokemon/${pokemon.id}`}
-          className={`group rounded-xl overflow-hidden flex flex-col flex-1 hover:-translate-y-2 transform transition-all duration-200 ease-in-out ${
+          className={`min-w-[220px] max-w-[280px] group rounded-xl overflow-hidden flex flex-col flex-1 hover:-translate-y-2 transform transition-all duration-200 ease-in-out ${
             activeCard === pokemon.id ? "scale-95 shadow-2xl" : ""
           } hover:shadow-xl hover:bg-gray-300/50 dark:hover:bg-gray-700/50 dark:shadow-gray-200 dark:hover:shadow-md`}
           style={{
