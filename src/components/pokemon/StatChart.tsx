@@ -36,17 +36,17 @@ function StatChart(props: Props) {
       max: props.defense ? 255 - props.defense : 255,
     },
     {
-      stat: "Sp. Def.",
+      stat: "Sp. D.",
       power: props.speAtt,
       max: props.speAtt ? 255 - props.speAtt : 255,
     },
     {
-      stat: "Sp. Att.",
+      stat: "Sp. A.",
       power: props.speDef,
       max: props.speDef ? 255 - props.speDef : 255,
     },
     {
-      stat: "Speed",
+      stat: "Spd",
       power: props.speed,
       max: props.speed ? 255 - props.speed : 255,
     },
@@ -54,15 +54,15 @@ function StatChart(props: Props) {
 
   return (
     <Card className="min-h-full">
-      <CardHeader>
+      <CardHeader className="text-sm xs:text-[1rem]">
         <CardTitle className="text-pokemon-blue dark:text-pokemon-gold">
           Base Stats
         </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex items-center justify-center">
         <ChartContainer
           config={chartConfig}
-          style={{ width: "100%", aspectRatio: "4/3" }}
+          className="h-40 xs:w-[90%] xs:h-50 sm:h-auto w-full sm:aspect-[4/3]"
         >
           <BarChart
             accessibilityLayer
