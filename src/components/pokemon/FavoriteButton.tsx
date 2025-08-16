@@ -59,7 +59,7 @@ function FavoriteButton({ pokemonId, pokemon }: Props) {
         disabled={isLoading}
         className={`cursor-pointer focus:ring-4 focus:outline-none focus:ring-red-400 hover:bg-pokemon-red active:bg-pokemon-boston-red ${
           isFavorite ? "bg-pokemon-boston-red" : "bg-red-400"
-        }`}
+        } shadow-md`}
       >
         <Heart
           strokeWidth={3}

@@ -27,7 +27,7 @@ export function ModeToggle() {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="bg-pokemon-red dark:bg-pokemon-blue border-0 rounded-xl text-white font-pokemon"
+        className="bg-pokemon-red dark:bg-pokemon-blue border-0 rounded-xl text-gray-200 font-pokemon"
       >
         <DropdownMenuItem
           onClick={() => setTheme("light")}
