@@ -9,12 +9,12 @@ function TypeBadge(props: Props) {
   const typeColor = getPokemonTypeColor(props.type);
 
   return (
-    <div className="flex-1 text-center">
+    <div className="xs:flex-1 xs:text-center">
       {props.type ? (
         <Badge
           variant="default"
-          className={`bg-${typeColor} text-white dark:bg-${typeColor} min-w-22
-           w-full max-w-24 capitalize text-xs shadow-md`}
+          className={`bg-${typeColor} text-gray-200 dark:bg-${typeColor} min-w-22 xs:min-w-23
+           w-full max-w-26 capitalize text-[0.65rem] xs:text-xs shadow-md`}
         >
           {props.type}
         </Badge>
