@@ -17,7 +17,9 @@ function Favorites() {
 
   return (
     <div className="flex flex-col flex-1">
-      <h1 className="text-3xl text-center mt-4 py-4">Favorites</h1>
+      <h1 className="text-2xl text-center mt-0 sm:mt-2 py-2 md:mt-4 md:py-4 md:text-3xl">
+        Favorites
+      </h1>
       <Button
         variant="destructive"
         className="mx-auto mb-4 cursor-pointer bg-pokemon-boston-red focus:ring-4 focus:outline-none focus:ring-pokemon-red hover:bg-pokemon-red active:bg-red-400"
@@ -31,7 +33,9 @@ function Favorites() {
       <div className="flex-1">
         <FavoritesGrid />
       </div>
-      <Paginate totalPokemon={totalPokemon} />
+      <div className="flex justify-center">
+        <Paginate totalPokemon={totalPokemon} />
+      </div>
     </div>
   );
 }

@@ -6,11 +6,15 @@ function Home() {
 
   return (
     <div className="flex flex-col flex-1">
-      <h1 className="text-3xl text-center my-4 py-4">Pokédex</h1>
+      <h1 className="text-2xl text-center my-1 py-1 sm:my-2 sm:py-2 md:my-4 md:py-4 md:text-3xl">
+        Pokédex
+      </h1>
       <div className="flex-1">
         <PokemonGrid />
       </div>
-      <Paginate totalPokemon={totalPokemon} />
+      <div className="flex justify-center">
+        <Paginate totalPokemon={totalPokemon} />
+      </div>
     </div>
   );
 }
