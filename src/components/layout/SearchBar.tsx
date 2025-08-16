@@ -6,6 +6,7 @@ import {
   getPokemonURLByID,
 } from "@/lib/api/indivPokeData";
 import { TriangleAlert } from "lucide-react";
+import { useMediaQuery } from "@/lib/use-media-query";
 
 function SearchBar({ suggestions }: { suggestions: string[] }) {
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
@@ -15,6 +16,7 @@ function SearchBar({ suggestions }: { suggestions: string[] }) {
   const [originalInput, setOriginalInput] = useState<string | number>(""); // Store user's original input
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const isDesktop = useMediaQuery("(min-width: 880px)");
 
   const isNavigatingRef = useRef(false); // Flag to prevent debounce during navigation
   const resultContainer = useRef<HTMLLIElement>(null);
@@ -237,7 +239,7 @@ function SearchBar({ suggestions }: { suggestions: string[] }) {
             type="text"
             id="simple-search"
             className="capitalize border text-sm rounded-lg bg-gray-200 border-gray-300 text-gray-900 focus:ring-pokemon-red focus:border-pokemon-red block w-full ps-10 p-2.5 dark:bg-gray-900 dark:border-gray-200 dark:placeholder-gray-500 dark:text-gray-200 dark:focus:ring-pokemon-blue dark:focus:border-pokemon-blue"
-            placeholder="Name or number..."
+            placeholder={isDesktop ? "Name or number..." : "Name or ID"}
             required
             value={inputValue}
             onChange={handleChange}
