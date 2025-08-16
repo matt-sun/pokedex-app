@@ -36,7 +36,7 @@ function Paginate(props: { totalPokemon: number }) {
   };
 
   return (
-    <Pagination className="mt-8 mb-4 p-4">
+    <Pagination className="w-fit mt-4 mb-2 mx-auto p-2 sm:mt-5 sm:mb-3 sm:p-3 md:mt-6 md:mb-4 md:p-4">
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
@@ -63,7 +63,7 @@ function Paginate(props: { totalPokemon: number }) {
           </PaginationItem>
         )}
         {currentPage > 2 && (
-          <PaginationItem>
+          <PaginationItem className="hidden xs:inline-flex">
             <PaginationLink
               className="cursor-pointer"
               onClick={() => handlePageChange(currentPage - 1)}
@@ -80,7 +80,7 @@ function Paginate(props: { totalPokemon: number }) {
           </PaginationItem>
         )}
         {currentPage < totalPages - 1 && (
-          <PaginationItem>
+          <PaginationItem className="hidden xs:inline-flex">
             <PaginationLink
               className="cursor-pointer"
               onClick={() => handlePageChange(currentPage + 1)}
