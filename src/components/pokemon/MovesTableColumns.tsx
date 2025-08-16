@@ -145,7 +145,7 @@ function tableSorting(column: Column<PokemonMoves>) {
     <Button
       variant="ghost"
       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      className="capitalize cursor-pointer p-0 gap-0 w-full"
+      className="capitalize cursor-pointer p-0 gap-0 w-full text-xs sm:text-sm"
     >
       {columnId()}
       <ChevronsUpDown className="h-4 w-4" />

@@ -82,7 +82,7 @@ function MovesTable<TData, TValue>({
 
   return (
     <div className="w-full p-2">
-      <Table className="w-full table-fixed">
+      <Table className="w-full table-auto sm:table-fixed">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
@@ -101,7 +101,7 @@ function MovesTable<TData, TValue>({
                 return (
                   <TableHead
                     key={header.id}
-                    className={`p-0 text-center ${getColumnWidth(index)}`}
+                    className={`p-0 text-center ${getColumnWidth(index)} text-xs sm:text-sm`}
                   >
                     {header.isPlaceholder
                       ? null
@@ -126,7 +126,7 @@ function MovesTable<TData, TValue>({
                   className="cursor-pointer transition-colors hover:bg-gray-300/50"
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="text-center">
+                    <TableCell key={cell.id} className="text-center text-xs sm:text-sm">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
@@ -144,7 +144,7 @@ function MovesTable<TData, TValue>({
                           : "animate-description-out"
                       }`}
                     >
-                      <div className="text-sm text-gray-500 dark:text-gray-300/80 text-wrap">
+                      <div className="text-gray-500 dark:text-gray-300/80 text-wrap text-xs sm:text-sm">
                         {row.getValue("description")}
                       </div>
                     </TableCell>
@@ -154,7 +154,7 @@ function MovesTable<TData, TValue>({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
+              <TableCell colSpan={columns.length} className="h-24 text-center text-xs sm:text-sm">
                 No results.
               </TableCell>
             </TableRow>
