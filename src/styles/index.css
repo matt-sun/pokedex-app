@@ -44,7 +44,7 @@
   --animate-description-in: description-in 0.4s ease-out;
   --animate-description-out: description-out 0.4s ease-out;
   --animate-bounce-once: bounce-once 0.6s ease-out forwards;
-  --animate-shine: shine 0.6s linear;
+  --animate-shine: shine 1s linear;
   --animate-fade-in-left: fade-in-left 0.6s ease-out forwards;
   --animate-fade-in-right: fade-in-right 0.6s ease-out forwards;
   --animate-fade-in-up: fade-in-up 0.6s ease-out forwards;
