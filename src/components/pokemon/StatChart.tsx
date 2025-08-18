@@ -62,7 +62,7 @@ function StatChart(props: Props) {
       <CardContent className="flex items-center justify-center">
         <ChartContainer
           config={chartConfig}
-          className="h-40 xs:w-[90%] xs:h-50 sm:h-auto w-full sm:aspect-[4/3]"
+          className="h-40 xs:w-[90%] xs:h-50 aspect-[4/3] sm:h-auto sm:max-h-80 w-full sm:aspect-square"
         >
           <BarChart
             accessibilityLayer
