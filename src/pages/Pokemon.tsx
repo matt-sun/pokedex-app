@@ -23,8 +23,9 @@ import {
 } from "lucide-react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Link } from "react-router-dom";
-import { getPokemonTypeStyles } from "@/lib/utils";
+import { cn, getPokemonTypeStyles } from "@/lib/utils";
 import { useMediaQuery } from "@/lib/use-media-query";
+import { useState } from "react";
 
 // Upon reload, we can have an error because the data is not cached.
 // To fix this, I cache the data via IndexedDB.
@@ -34,6 +35,8 @@ function Pokemon() {
 
   const { pokemon, isLoading, error } = useDetailedPokemonData(id ? id : "");
 
+  const [spriteShiny, setSpriteShiny] = useState(false);
+
   const typeStyles = getPokemonTypeStyles(
     pokemon?.types?.[1],
     pokemon?.types?.[2]
@@ -41,6 +44,10 @@ function Pokemon() {
 
   const isBreakPointSmall = useMediaQuery("(min-width: 640px)");
   const isBreakPointExtraSmall = useMediaQuery("(min-width: 480px)");
+
+  const handleClick = () => {
+    setSpriteShiny(!spriteShiny);
+  };
 
   if (error) {
     return <div className="text-center p-4">Error: {error}</div>;
@@ -102,19 +109,39 @@ function Pokemon() {
         </div>
 
         <div
-          className="col-start-1 row-start-3 col-span-4 sm:col-span-2 w-span-1 h-full w-auto group rounded-xl overflow-hidden relative"
+          className={
+            "col-start-1 row-start-3 col-span-4 sm:col-span-2 row-span-1 h-full w-full group rounded-xl overflow-hidden relative shadow-lg hover:bg-gray-300/50 active:bg-gray-300 active:ring-gray-400/60 hover:dark:bg-gray-800 active:dark:bg-gray-700 dark:ring-1 dark:ring-gray-700 active:dark:ring-gray-500 active:ring-2"
+          }
           style={{
             animation: "var(--animate-fade-in)",
             animationDelay: `${Math.random() * 0.5}s`,
             opacity: 0,
           }}
         >
-          <img
-            src={pokemon.sprites?.front}
-            alt={pokemon.name}
-            className="h-50 xs:h-70 w-auto sm:w-100 sm:h-auto justify-self-center self-center"
-          />
-          <div className="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-40 animate-shine" />
+          <Button
+            className="w-full h-full cursor-pointer"
+            variant="ghost"
+            onClick={handleClick}
+          >
+            <div
+              className={cn(
+                `transition-all duration-1000 transform-3d active:rotate-y-180 relative h-auto w-full`,
+                spriteShiny && `rotate-y-180`
+              )}
+            >
+              <img
+                src={pokemon.sprites?.front}
+                alt={pokemon.name}
+                className="absolute backface-hidden h-50 xs:h-70 w-auto sm:w-100 sm:h-auto justify-self-center self-center"
+              />
+              <img
+                src={pokemon.sprites?.shiny}
+                alt={pokemon.name}
+                className="absolute backface-hidden rotate-y-180 h-50 xs:h-70 w-auto sm:w-100 sm:h-auto justify-self-center self-center"
+              />
+              <div className="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-40 animate-shine" />
+            </div>
+          </Button>
         </div>
 
         <div
