@@ -110,7 +110,7 @@ function Pokemon() {
 
         <div
           className={
-            "col-start-1 row-start-3 col-span-4 sm:col-span-2 row-span-1 h-full w-full group rounded-xl overflow-hidden relative shadow-lg hover:bg-gray-300/50 active:bg-gray-300 active:ring-gray-400/60 hover:dark:bg-gray-800 active:dark:bg-gray-700 dark:ring-1 dark:ring-gray-700 active:dark:ring-gray-500 active:ring-2"
+            "col-start-1 row-start-3 col-span-4 sm:col-span-2 row-span-1 h-fit w-full aspect-video sm:h-full sm:w-full sm:aspect-square group rounded-xl overflow-hidden relative shadow-lg hover:bg-gray-300/50 active:bg-gray-300 active:ring-gray-400/60 hover:dark:bg-gray-800 active:dark:bg-gray-700 dark:ring-1 dark:ring-gray-700 active:dark:ring-gray-500 active:ring-2"
           }
           style={{
             animation: "var(--animate-fade-in)",
@@ -132,12 +132,12 @@ function Pokemon() {
               <img
                 src={pokemon.sprites?.front}
                 alt={pokemon.name}
-                className="absolute backface-hidden h-50 xs:h-70 w-auto sm:w-100 sm:h-auto justify-self-center self-center"
+                className="absolute backface-hidden h-50 w-auto xs:h-70 sm:w-100 sm:h-auto justify-self-center self-center"
               />
               <img
                 src={pokemon.sprites?.shiny}
                 alt={pokemon.name}
-                className="absolute backface-hidden rotate-y-180 h-50 xs:h-70 w-auto sm:w-100 sm:h-auto justify-self-center self-center"
+                className="absolute backface-hidden rotate-y-180 h-50 w-auto xs:h-70 sm:w-100 sm:h-auto justify-self-center self-center"
               />
               <div className="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-40 animate-shine" />
             </div>
