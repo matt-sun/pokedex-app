@@ -21,7 +21,6 @@ interface Pokemon {
   genderRate?: number; // in 8ths, -1 means genderless
   growthRate?: string;
   eggGroups?: {
-    // Types essentially
     1: string;
     2: string;
   };
@@ -30,7 +29,6 @@ interface Pokemon {
   isLegendary?: boolean;
   isMythical?: boolean;
 }
-// favorite: boolean;
 
 interface PokemonAbilities {
   name: string;
