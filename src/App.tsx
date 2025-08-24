@@ -1,8 +1,9 @@
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import Layout from "@/components/layout/Layout";
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import useMainPokemonData from "@/hooks/usePokemon";
 import type { PokemonContextType, IndexContextType } from "@/lib/types";
+import { useLocation } from "react-router-dom";
 
 const PokemonContext = createContext<PokemonContextType>({
   result: {
@@ -23,6 +24,12 @@ const IndexContext = createContext<IndexContextType>({
 function App() {
   const [startIndex, setStartIndex] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const location = useLocation();
+
+  useEffect(() => {
+    setStartIndex(0);
+    setCurrentPage(1);
+  }, [location.pathname]);
 
   // Use hook directly, not useState
   const result = useMainPokemonData(startIndex);
