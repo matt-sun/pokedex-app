@@ -110,6 +110,8 @@ function Paginate(props: { totalPokemon: number }) {
             className={
               currentPage === totalPages
                 ? "pointer-events-none opacity-50"
+                : totalPages === 0
+                ? "pointer-events-none opacity-50"
                 : "cursor-pointer"
             }
             onClick={handleNext}
