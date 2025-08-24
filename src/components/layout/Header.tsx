@@ -24,6 +24,11 @@ import { MenuIcon, X } from "lucide-react";
 function Header() {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const isDesktop = useMediaQuery("(min-width: 880px)");
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClick = () => {
+    setIsOpen(!isOpen);
+  };
 
   useEffect(() => {
     const getSuggestions = async () => {
@@ -86,7 +91,7 @@ function Header() {
             </div>
 
             <div className="flex justify-self-end items-center">
-              <Drawer direction="right">
+              <Drawer direction="right" open={isOpen} onOpenChange={setIsOpen}>
                 <DrawerTrigger className="cursor-pointer hover:bg-pokemon-red dark:hover:bg-pokemon-blue p-2 rounded-lg">
                   <MenuIcon />
                 </DrawerTrigger>
@@ -103,10 +108,18 @@ function Header() {
 
                   <div className="flex flex-col items-end justify-between pt-0 p-4">
                     <div className="p-3 mb-3 bg-pokemon-boston-red dark:bg-red-900 rounded-lg flex flex-col items-end w-full">
-                      <Button variant="link" className="p-3">
+                      <Button
+                        variant="link"
+                        className="p-3"
+                        onClick={handleClick}
+                      >
                         <Link to={`favorites`}>Favorites</Link>
                       </Button>
-                      <Button variant="link" className="py-3">
+                      <Button
+                        variant="link"
+                        className="py-3"
+                        onClick={handleClick}
+                      >
                         <Link to={`about`}>About</Link>
                       </Button>
                     </div>
