@@ -181,7 +181,7 @@ Resources, pluggins and add-ons I found helpful and to whom I woould like to ext
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[product-screenshot]: images/pokedex_app_screenshot.png
+[product-screenshot]: assets/images/pokedex_app_screenshot.png
 [Vite.dev]: https://img.shields.io/badge/vite.dev-%23646CFF?style=for-the-badge&logo=vite&logoColor=white
 [Vite-url]: https://vite.dev/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
