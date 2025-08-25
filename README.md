@@ -113,7 +113,7 @@ To get a local copy up and running follow these simple example steps.
 It's a Pokedex, so if you've come this far, I trust you know how to use a Pokedex...
 
 ```sh
-Gotta Catch 'Em All!
+"Gotta Catch 'Em All!"
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
